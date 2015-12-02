@@ -1,10 +1,12 @@
-<html lang="en" ng-app="StarterApp">
+<html lang="en" ng-app="app">
     <head>
-        <meta name="viewport" content="initial-scale=1" />
+        <meta name="viewport" content="initial-scale=1"/>
         <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
+        <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">
     </head>
 
     <body layout="column" ng-controller="AppController as vm">
+
         <md-toolbar layout="row">
             <div class="md-toolbar-tools">
                 <md-button ng-click="vm.toggleSidenav('left')" hide-gt-sm class="md-icon-button">
@@ -20,18 +22,52 @@
                 <md-button class="md-accent">Button 2</md-button>
             </md-sidenav>
             <div layout="column" flex id="content">
-                <md-content layout="column" flex class="md-padding">
-                    This Starter Application consists of a Toolbar, SideNav (with two buttons), and Content area.
-                    <p>This is the content area! </p>
-                </md-content>
+                    <md-content class="md-padding" ng-show="mobsGroupedArray.length">
+                        <h1>
+                            Mobs
+                        </h1>
+
+                        <div layout="row">
+                            <md-icon class="fa fa-search"></md-icon>
+
+                            <md-input-container flex>
+                                <label>Search</label>
+                                <input ng-model="vm.search" type="text">
+                            </md-input-container>
+                        </div>
+
+                        <md-list>
+                            <md-list-item class="md-3-line" ng-repeat-start="mobGroup in mobsGroupedArray | filter:vm.search | orderBy:['name', 'type']" ng-click="lol()">
+                                <div class="md-list-item-text" layout="row">
+                                    <div flex="70" layout="column">
+                                        <h3>{{ mobGroup.name }}</h3>
+                                        <h4>{{ mobGroup.type }}</h4>
+                                    </div>
+                                    <span flex></span>
+                                    <p>{{ mobGroup.sizes.join(", ") }}</p>
+                                </div>
+                            </md-list-item>
+                            <md-divider ng-repeat-end ng-if="!$last"></md-divider>
+                        </md-list>
+                    </md-content>
+                    <md-content class="md-padding" layout="column" ng-show="!mobsGroupedArray.length">
+                        <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
+                        </div>
+                    </md-content>
+
             </div>
         </div>
+
+        <script src="/bower_components/lodash/lodash.js"></script>
 
         <!-- Angular Material Dependencies -->
         <script src="/bower_components/angular/angular.js"></script>
         <script src="/bower_components/angular-animate/angular-animate.js"></script>
         <script src="/bower_components/angular-aria/angular-aria.js"></script>
         <script src="/bower_components/angular-material/angular-material.js"></script>
+
+        <script src="/app.js"></script>
     </body>
 
 </html>

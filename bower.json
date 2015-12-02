@@ -16,6 +16,8 @@
     "tests"
   ],
   "dependencies": {
-    "angular-material": "master"
+    "angular-material": "master",
+    "lodash": "~3.10.1",
+    "font-awesome": "fontawesome#~4.5.0"
   }
 }
