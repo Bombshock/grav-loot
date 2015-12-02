@@ -1,0 +1,21 @@
+{
+  "name": "grav-loot",
+  "homepage": "https://github.com/Bombshock/grav-loot",
+  "authors": [
+    "Bombshock"
+  ],
+  "description": "",
+  "main": "index.html",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "master"
+  }
+}
