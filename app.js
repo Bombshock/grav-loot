@@ -12,7 +12,7 @@
 
   function AppController($scope, $http, $timeout) {
     console.log("bootstrap");
-    $http.get('/grav-settings/DefaultDataObject_LootTables.ini')
+    $http.get('grav-settings/DefaultDataObject_LootTables.ini')
       .success(function (result) {
         $timeout(function () {
           $scope.data = parseIni(result);
