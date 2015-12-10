@@ -1,14 +1,15 @@
 <md-content flex layout="column" ng-show="vm.item">
-    <div class="md-toolbar-tools" layout="row">
-        <md-button aria-label="zurück" class="md-icon-button" ng-click="vm.$state.go('blueprints')">
-            <md-icon class="fa fa-angle-left"></md-icon>
-        </md-button>
+    <md-toolbar layout="row">
+        <div class="md-toolbar-tools">
+            <md-button aria-label="zurück" class="md-icon-button" ng-click="vm.$state.go('blueprints')">
+                <md-icon class="fa fa-angle-left"></md-icon>
+            </md-button>
 
-        <h2>
-            BluePrints
-            - {{vm.id}}
-        </h2>
-    </div>
+            <h2>
+                {{vm.id}}
+            </h2>
+        </div>
+    </md-toolbar>
 
     <md-divider></md-divider>
 

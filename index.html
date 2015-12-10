@@ -27,12 +27,51 @@
                 display: initial;
             }
 
+            body {
+                background: url('img/background.jpg') no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
+
+            .transparent {
+                background-color: transparent !important;
+            }
+
+            .transparent h1 {
+                text-shadow: 0 0 8px rgba(0, 0, 0, 1);
+            }
+
+            .search-bar ::-webkit-input-placeholder {
+                color: rgba(255, 255, 255, 0.7) !important;
+            }
+
+            .search-bar :-moz-placeholder {
+                color: rgba(255, 255, 255, 0.7) !important;
+            }
+
+            .search-bar ::-moz-placeholder {
+                color: rgba(255, 255, 255, 0.7) !important;
+            }
+
+            .search-bar :-ms-input-placeholder {
+                color: rgba(255, 255, 255, 0.7) !important;
+            }
+
+            .search-bar input {
+                color: #FFF !important;
+                border-bottom-color: #FFF;
+            }
+
+
+
         </style>
     </head>
 
     <body layout="column" ng-cloak>
 
-        <md-toolbar layout="row" ng-cloak>
+        <md-toolbar layout="row" ng-cloak class="transparent">
             <div class="md-toolbar-tools" layout="row">
                 <div flex="20">
                     <img src="img/grav_logo_min.png" style="max-width: 225px;"/>
@@ -42,29 +81,31 @@
             </div>
         </md-toolbar>
 
-        <md-content layout="row" flex ng-cloak>
+        <md-content layout="row" flex ng-cloak class="transparent">
             <div flex="20">
-                <md-toolbar class="md-tall">
+                <md-toolbar class="md-tall transparent">
                 </md-toolbar>
 
-                <md-list>
-                    <md-list-item ui-sref-active="active" ui-sref="mobs()" layout="row" class="menu">
-                        <p flex>Mobs</p>
-                        <md-icon class="fa fa-chevron-right"></md-icon>
-                    </md-list-item>
-                    <md-divider></md-divider>
-                    <md-list-item ui-sref-active="active" ui-sref="blueprints()" layout="row" class="menu">
-                        <p flex>BluePrints</p>
-                        <md-icon class="fa fa-chevron-right"></md-icon>
-                    </md-list-item>
-                </md-list>
+                <md-content>
+                    <md-list>
+                        <md-list-item ui-sref-active="active" ui-sref="mobs()" layout="row" class="menu">
+                            <p flex>Mobs</p>
+                            <md-icon class="fa fa-chevron-right"></md-icon>
+                        </md-list-item>
+                        <md-divider></md-divider>
+                        <md-list-item ui-sref-active="active" ui-sref="blueprints()" layout="row" class="menu">
+                            <p flex>BluePrints</p>
+                            <md-icon class="fa fa-chevron-right"></md-icon>
+                        </md-list-item>
+                    </md-list>
+                </md-content>
             </div>
 
             <md-content flex class="md-whiteframe-3dp" id="content" layout="column" ui-view>
             </md-content>
 
             <div flex="20">
-                <md-toolbar class="md-tall">
+                <md-toolbar class="md-tall transparent">
                     <div class="md-toolbar-tools">
                     </div>
                     <div class="md-toolbar-tools">

@@ -1,10 +1,14 @@
 <md-content flex layout="column">
-    <div layout="row">
-        <md-input-container flex style="margin: 30px 18px 0;">
-            <label>Search</label>
-            <input ng-model="$root.searchTextMobs">
-        </md-input-container>
-    </div>
+    <md-toolbar class="search-bar">
+        <div class="md-toolbar-tools" layout="row">
+            <md-input-container md-no-float="true" flex style="margin: 30px 18px 0; color: #FFF;">
+                <input placeholder="Search here" ng-model="$root.searchTextMobs">
+            </md-input-container>
+            <md-button class="md-icon-button" aria-label="reset search" ng-click="$root.searchTextMobs = ''">
+                <md-icon class="fa fa-times"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
 
     <md-divider></md-divider>
 
