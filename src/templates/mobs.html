@@ -1,0 +1,46 @@
+<md-content flex layout="column">
+    <div class="md-toolbar-tools" layout="row">
+        <h2 flex>Mobs</h2>
+
+        <div flex="50" layout="row">
+            <md-autocomplete style="margin-left: 50px;" ng-init="$root.searchTextMobs = $root.searchTextMobs || ''"
+                    flex
+                    md-search-text="$root.searchTextMobs"
+                    md-items="mobGroup in vm.lootTables.mobsGroupedArray | orderBy:['name', 'type']"
+                    md-item-text="mobGroup.name"
+                    md-min-length="0"
+                    placeholder="Search">
+                <md-item-template>
+                    <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{mobGroup.name}} ({{mobGroup.type}})</span>
+                </md-item-template>
+                <md-not-found>
+                    Nothing matching "{{vm.searchText}}" was found.
+                </md-not-found>
+            </md-autocomplete>
+        </div>
+    </div>
+
+    <md-divider></md-divider>
+
+    <md-content flex ng-show="vm.lootTables.mobsGroupedArray.length">
+        <md-list>
+            <md-list-item class="md-3-line" ng-repeat-start="mobGroup in vm.lootTables.mobsGroupedArray | filter:$root.searchTextMobs | orderBy:['name', 'type']" ng-click="vm.goToMob(mobGroup)">
+                <div class="md-list-item-text" layout="row">
+                    <div flex="70" layout="column">
+                        <h3>{{ mobGroup.name }}</h3>
+                        <h4>{{ mobGroup.type }}</h4>
+                    </div>
+                    <span flex></span>
+                    <p>{{ vm.genSizes(mobGroup) }}</p>
+                </div>
+            </md-list-item>
+            <md-divider ng-repeat-end ng-if="!$last"></md-divider>
+        </md-list>
+    </md-content>
+
+    <md-content class="md-padding" layout="column" layout-align="center center" flex ng-show="!vm.lootTables.mobsGroupedArray.length">
+        <div layout="row" layout-sm="column" layout-align="space-around">
+            <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
+        </div>
+    </md-content>
+</md-content>

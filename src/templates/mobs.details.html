@@ -1,0 +1,35 @@
+<md-content flex layout="column" ng-show="vm.item">
+    <div class="md-toolbar-tools" layout="row">
+        <md-button aria-label="zurück" class="md-icon-button" ng-click="vm.$state.go('mobs')">
+            <md-icon class="fa fa-angle-left"></md-icon>
+        </md-button>
+
+        <h2>
+            Mobs
+            - {{vm.item.name}} ({{vm.item.type}})
+        </h2>
+    </div>
+
+    <md-divider></md-divider>
+
+    <md-tabs md-border-bottom flex layout="column" md-selected="vm.selectedTab">
+        <md-tab label="{{size.size}} ({{size.lootCounter}})" flex layout="column" ng-repeat="size in vm.item.sizes">
+            <md-content id="editor" flex layout="column">
+
+                <md-list>
+                    <md-list-item ng-repeat-start="(key, value) in size.loot">
+                        <p>{{key}}</p>
+                    </md-list-item>
+                    <md-divider ng-repeat-end ng-if="!$last"></md-divider>
+                </md-list>
+
+            </md-content>
+        </md-tab>
+    </md-tabs>
+
+</md-content>
+<md-content class="md-padding" layout="column" layout-align="center center" flex ng-show="!vm.item">
+    <div layout="row" layout-sm="column" layout-align="space-around">
+        <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
+    </div>
+</md-content>
