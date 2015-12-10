@@ -1,45 +1,32 @@
-<md-content flex layout="column">
-    <div class="md-toolbar-tools" layout="row">
-        <h2 flex>BluePrints</h2>
-
-        <div flex="50" layout="row">
-            <md-autocomplete style="margin-left: 50px;"
-                    flex
-                    md-selected-item="vm.selectedItem"
-                    md-search-text="vm.searchText"
-                    md-items="mobGroup in vm.lootTables.mobsGroupedArray | orderBy:['name', 'type']"
-                    md-item-text="mobGroup.name"
-                    md-min-length="0"
-                    placeholder="Search">
-                <md-item-template>
-                    <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{mobGroup.name}}</span>
-                </md-item-template>
-                <md-not-found>
-                    Nothing matching "{{vm.searchText}}" was found.
-                </md-not-found>
-            </md-autocomplete>
-        </div>
+<md-content flex layout="column" ng-init="$root.searchTextBPsOffset = $root.searchTextBPsOffset || 0;">
+    <div layout="row">
+        <md-input-container flex style="margin: 30px 18px 0;">
+            <label>Search</label>
+            <input ng-model="$root.searchTextBPs">
+        </md-input-container>
     </div>
 
     <md-divider></md-divider>
 
-    <md-content flex ng-show="vm.lootTables.mobsGroupedArray.length">
-        <md-list>
-            <md-list-item class="md-3-line" ng-repeat-start="mobGroup in vm.lootTables.mobsGroupedArray | filter:vm.searchText | orderBy:['name', 'type']" ng-click="lol()">
-                <div class="md-list-item-text" layout="row">
-                    <div flex="70" layout="column">
-                        <h3>{{ mobGroup.name }}</h3>
-                        <h4>{{ mobGroup.type }}</h4>
+    <md-content flex ng-show="vm.lootTables.data" layout="row">
+
+        <md-virtual-repeat-container id="vertical-container" flex>
+            <md-list>
+                <md-list-item class="md-3-line blueprint-list-item"
+                              md-virtual-repeat="item in vm.lootTables.lootsArray | filter:$root.searchTextBPs | orderBy:'__key'"
+                              md-item-size="88"
+                              ng-click="vm.viewDetails(item)">
+                    <div class="md-list-item-text" layout="row">
+                        <h3>{{ item.__key }}</h3>
                     </div>
-                    <span flex></span>
-                    <p>{{ mobGroup.sizes.join(", ") }}</p>
-                </div>
-            </md-list-item>
-            <md-divider ng-repeat-end ng-if="!$last"></md-divider>
-        </md-list>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-list-item>
+            </md-list>
+        </md-virtual-repeat-container>
+
     </md-content>
 
-    <md-content class="md-padding" layout="column" layout-align="center center" flex ng-show="!vm.lootTables.mobsGroupedArray.length">
+    <md-content class="md-padding" layout="column" layout-align="center center" flex ng-show="!vm.lootTables.data">
         <div layout="row" layout-sm="column" layout-align="space-around">
             <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
         </div>

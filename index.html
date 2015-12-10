@@ -15,6 +15,18 @@
                 vertical-align: middle;
             }
 
+            md-list-item.active a{
+                font-weight: bold;
+            }
+
+            md-list-item a md-icon.fa{
+                display: none;
+            }
+
+            md-list-item.active a md-icon.fa{
+                display: initial;
+            }
+
         </style>
     </head>
 
@@ -36,12 +48,14 @@
                 </md-toolbar>
 
                 <md-list>
-                    <md-list-item ng-href="#/mobs">
-                        <p>Mobs</p>
+                    <md-list-item ui-sref-active="active" ui-sref="mobs()" layout="row" class="menu">
+                        <p flex>Mobs</p>
+                        <md-icon class="fa fa-chevron-right"></md-icon>
                     </md-list-item>
                     <md-divider></md-divider>
-                    <md-list-item ng-href="#/blueprints">
-                        <p>BluePrints</p>
+                    <md-list-item ui-sref-active="active" ui-sref="blueprints()" layout="row" class="menu">
+                        <p flex>BluePrints</p>
+                        <md-icon class="fa fa-chevron-right"></md-icon>
                     </md-list-item>
                 </md-list>
             </div>

@@ -74318,6 +74318,13 @@ angular.module('ui.router.state')
       controller: "BlueprintsViewController",
       controllerAs: "vm"
     });
+
+    $stateProvider.state("blueprintsDetails", {
+      url: "/blueprints/:id",
+      templateUrl: "src/templates/blueprints.details.html",
+      controller: "BlueprintsDetailsViewController",
+      controllerAs: "vm"
+    });
   }
 
 })();
@@ -74342,18 +74349,45 @@ angular.module('ui.router.state')
 
 })();
 
+//src/controller/blueprints.details.js
+(function () {
+  'use strict';
+
+  angular.module("app").controller("BlueprintsDetailsViewController", BlueprintsDetailsViewController);
+
+  BlueprintsDetailsViewController.$inject = ["lootTables", "$state"];
+
+  function BlueprintsDetailsViewController(lootTables, $state) {
+    var vm = this;
+
+    vm.id = $state.params.id;
+    vm.$state = $state;
+
+    lootTables.$promise.then(function () {
+      vm.item = lootTables.lootsIndexed[vm.id];
+    });
+  }
+
+})();
+
 //src/controller/blueprints.js
 (function () {
   'use strict';
 
   angular.module("app").controller("BlueprintsViewController", BlueprintsViewController);
 
-  BlueprintsViewController.$inject = ["lootTables"];
+  BlueprintsViewController.$inject = ["lootTables", "$state", "$timeout"];
 
-  function BlueprintsViewController(lootTables) {
+  function BlueprintsViewController(lootTables, $state, $timeout) {
     var vm = this;
+    vm.viewDetails = viewDetails;
     vm.lootTables = lootTables;
-    vm.searchText = "";
+
+    function viewDetails(bp) {
+      $timeout(function () {
+        $state.go("blueprintsDetails", {id: bp.__key});
+      }, 0);
+    }
   }
 
 })();
@@ -74422,17 +74456,19 @@ angular.module('ui.router.state')
 
   angular.module("app").controller("MobsViewController", MobsViewController);
 
-  MobsViewController.$inject = ["lootTables", "$state"];
+  MobsViewController.$inject = ["lootTables", "$state", "$timeout"];
 
-  function MobsViewController(lootTables, $state) {
+  function MobsViewController(lootTables, $state, $timeout) {
     var vm = this;
-    vm.lootTables = lootTables;
     vm.searchText = "";
     vm.goToMob = goToMob;
     vm.genSizes = genSizes;
+    vm.lootTables = lootTables;
 
     function goToMob(mob) {
-      $state.go("mobsDetails", {id: mob.url});
+      $timeout(function () {
+        $state.go("mobsDetails", {id: mob.url});
+      }, 0);
     }
 
     function genSizes(mob) {
@@ -74441,6 +74477,41 @@ angular.module('ui.router.state')
           return size.size;
         })
         .join(", ");
+    }
+  }
+
+})();
+
+//src/directives/md-virtual-repeat-scroller.js
+/*global angular*/
+
+(function () {
+  'use strict';
+
+  var remeberedOffsets = {};
+
+  angular.module("app").directive("mdVirtualRepeatScroller", mdVirtualRepeatScroller);
+
+  mdVirtualRepeatScroller.$inject = ["$timeout"];
+
+  function mdVirtualRepeatScroller($timeout) {
+    return {
+      restrict: 'C',
+      require: '^mdVirtualRepeatContainer',
+      link: function (scope, iElement, iAttrs, controller) {
+        var id = controller.$element.attr('id');
+        var element = iElement[0];
+
+        $timeout(function () {
+          element.scrollTop = remeberedOffsets[id] || 0;
+        });
+
+        iElement.on("scroll", remember);
+
+        function remember() {
+          remeberedOffsets[id] = element.scrollTop;
+        }
+      }
     }
   }
 
@@ -74464,25 +74535,37 @@ angular.module('ui.router.state')
     lootTables.$promise = deferred.promise;
 
     $http.get('grav-settings/DefaultDataObject_LootTables.ini')
-      .success(function (result) {
-        $timeout(function () {
-          lootTables.data = parseIni(result);
-          lootTables.loots = extractLoots(lootTables.data);
-          lootTables.lootsIndexed = indexLoots(lootTables.loots);
-          lootTables.mobs = extractMobs(lootTables.data);
-          lootTables.mobsGrouped = groupMobs(lootTables.mobs);
-          lootTables.mobsGroupedArray = groupMobAsArray(lootTables.mobsGrouped);
-          deferred.resolve(lootTables);
-        }, 1000);
-      })
-      .catch(function (err) {
-        console.error(err);
-        deferred.reject(err);
-      });
+        .success(function (result) {
+          $timeout(function () {
+            lootTables.data = parseIni(result);
+            lootTables.loots = extractLoots(lootTables.data);
+            lootTables.lootsIndexed = indexLoots(lootTables.loots);
+            lootTables.lootsArray = convertToArray(lootTables.lootsIndexed);
+            lootTables.mobs = extractMobs(lootTables.data);
+            lootTables.mobsGrouped = groupMobs(lootTables.mobs);
+            lootTables.mobsGroupedArray = groupMobAsArray(lootTables.mobsGrouped);
+            deferred.resolve(lootTables);
+          }, 1000);
+        })
+        .catch(function (err) {
+          console.error(err);
+          deferred.reject(err);
+        });
 
     lootTables.getLootFromObject = getLootFromObject;
 
     return lootTables;
+  }
+
+  function convertToArray(obj) {
+    return Object.keys(obj)
+        .filter(function (key) {
+          return obj.hasOwnProperty(key);
+        })
+        .map(function (key) {
+          return angular.extend({}, obj[key], {__key: key});
+        });
+
   }
 
   function indexLoots(loots) {
@@ -74493,12 +74576,12 @@ angular.module('ui.router.state')
 
     keys.forEach(function (key) {
       var obj = loots[key];
-      getLootFromObject(obj, indexed);
+      getLootFromObject(obj, indexed, key);
     });
     return indexed;
   }
 
-  function getLootFromObject(obj, output) {
+  function getLootFromObject(obj, output, parent) {
     output = output || {};
     if (obj.hasOwnProperty("DroppedBlueprintData")) {
       obj.DroppedBlueprintData.forEach(function (bpData) {
@@ -74508,6 +74591,7 @@ angular.module('ui.router.state')
         bps.forEach(function (bp) {
           var data = angular.copy(bpData);
           delete data.DroppedBlueprints;
+          data.$parent = parent
           output[bp] = output[bp] || [];
           output[bp].push(data);
         });

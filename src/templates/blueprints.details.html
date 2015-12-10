@@ -1,0 +1,27 @@
+<md-content flex layout="column" ng-show="vm.item">
+    <div class="md-toolbar-tools" layout="row">
+        <md-button aria-label="zurück" class="md-icon-button" ng-click="vm.$state.go('blueprints')">
+            <md-icon class="fa fa-angle-left"></md-icon>
+        </md-button>
+
+        <h2>
+            BluePrints
+            - {{vm.id}}
+        </h2>
+    </div>
+
+    <md-divider></md-divider>
+
+    <md-list>
+        <md-list-item ng-repeat="drop in vm.item" layout="column">
+            <h3>{{drop.$parent}}</h3>
+            <p></p>
+        </md-list-item>
+    </md-list>
+
+</md-content>
+<md-content class="md-padding" layout="column" layout-align="center center" flex ng-show="!vm.item">
+    <div layout="row" layout-sm="column" layout-align="space-around">
+        <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
+    </div>
+</md-content>

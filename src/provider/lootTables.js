@@ -15,25 +15,37 @@
     lootTables.$promise = deferred.promise;
 
     $http.get('grav-settings/DefaultDataObject_LootTables.ini')
-      .success(function (result) {
-        $timeout(function () {
-          lootTables.data = parseIni(result);
-          lootTables.loots = extractLoots(lootTables.data);
-          lootTables.lootsIndexed = indexLoots(lootTables.loots);
-          lootTables.mobs = extractMobs(lootTables.data);
-          lootTables.mobsGrouped = groupMobs(lootTables.mobs);
-          lootTables.mobsGroupedArray = groupMobAsArray(lootTables.mobsGrouped);
-          deferred.resolve(lootTables);
-        }, 1000);
-      })
-      .catch(function (err) {
-        console.error(err);
-        deferred.reject(err);
-      });
+        .success(function (result) {
+          $timeout(function () {
+            lootTables.data = parseIni(result);
+            lootTables.loots = extractLoots(lootTables.data);
+            lootTables.lootsIndexed = indexLoots(lootTables.loots);
+            lootTables.lootsArray = convertToArray(lootTables.lootsIndexed);
+            lootTables.mobs = extractMobs(lootTables.data);
+            lootTables.mobsGrouped = groupMobs(lootTables.mobs);
+            lootTables.mobsGroupedArray = groupMobAsArray(lootTables.mobsGrouped);
+            deferred.resolve(lootTables);
+          }, 1000);
+        })
+        .catch(function (err) {
+          console.error(err);
+          deferred.reject(err);
+        });
 
     lootTables.getLootFromObject = getLootFromObject;
 
     return lootTables;
+  }
+
+  function convertToArray(obj) {
+    return Object.keys(obj)
+        .filter(function (key) {
+          return obj.hasOwnProperty(key);
+        })
+        .map(function (key) {
+          return angular.extend({}, obj[key], {__key: key});
+        });
+
   }
 
   function indexLoots(loots) {
@@ -44,12 +56,12 @@
 
     keys.forEach(function (key) {
       var obj = loots[key];
-      getLootFromObject(obj, indexed);
+      getLootFromObject(obj, indexed, key);
     });
     return indexed;
   }
 
-  function getLootFromObject(obj, output) {
+  function getLootFromObject(obj, output, parent) {
     output = output || {};
     if (obj.hasOwnProperty("DroppedBlueprintData")) {
       obj.DroppedBlueprintData.forEach(function (bpData) {
@@ -59,6 +71,7 @@
         bps.forEach(function (bp) {
           var data = angular.copy(bpData);
           delete data.DroppedBlueprints;
+          data.$parent = parent
           output[bp] = output[bp] || [];
           output[bp].push(data);
         });

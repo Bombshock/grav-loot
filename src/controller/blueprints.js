@@ -3,12 +3,18 @@
 
   angular.module("app").controller("BlueprintsViewController", BlueprintsViewController);
 
-  BlueprintsViewController.$inject = ["lootTables"];
+  BlueprintsViewController.$inject = ["lootTables", "$state", "$timeout"];
 
-  function BlueprintsViewController(lootTables) {
+  function BlueprintsViewController(lootTables, $state, $timeout) {
     var vm = this;
+    vm.viewDetails = viewDetails;
     vm.lootTables = lootTables;
-    vm.searchText = "";
+
+    function viewDetails(bp) {
+      $timeout(function () {
+        $state.go("blueprintsDetails", {id: bp.__key});
+      }, 0);
+    }
   }
 
 })();

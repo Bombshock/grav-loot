@@ -3,17 +3,19 @@
 
   angular.module("app").controller("MobsViewController", MobsViewController);
 
-  MobsViewController.$inject = ["lootTables", "$state"];
+  MobsViewController.$inject = ["lootTables", "$state", "$timeout"];
 
-  function MobsViewController(lootTables, $state) {
+  function MobsViewController(lootTables, $state, $timeout) {
     var vm = this;
-    vm.lootTables = lootTables;
     vm.searchText = "";
     vm.goToMob = goToMob;
     vm.genSizes = genSizes;
+    vm.lootTables = lootTables;
 
     function goToMob(mob) {
-      $state.go("mobsDetails", {id: mob.url});
+      $timeout(function () {
+        $state.go("mobsDetails", {id: mob.url});
+      }, 0);
     }
 
     function genSizes(mob) {

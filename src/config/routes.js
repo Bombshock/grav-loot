@@ -30,6 +30,13 @@
       controller: "BlueprintsViewController",
       controllerAs: "vm"
     });
+
+    $stateProvider.state("blueprintsDetails", {
+      url: "/blueprints/:id",
+      templateUrl: "src/templates/blueprints.details.html",
+      controller: "BlueprintsDetailsViewController",
+      controllerAs: "vm"
+    });
   }
 
 })();
