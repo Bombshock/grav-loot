@@ -14,9 +14,7 @@
       populate();
     });
 
-    $timeout(function () {
-      vm.lootTables = lootTables;
-    }, 300);
+    vm.lootTables = lootTables;
 
     vm.tiers = [
       {

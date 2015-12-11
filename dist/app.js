@@ -74373,9 +74373,7 @@ angular.module('ui.router.state')
       populate();
     });
 
-    $timeout(function () {
-      vm.lootTables = lootTables;
-    }, 300);
+    vm.lootTables = lootTables;
 
     vm.tiers = [
       {
@@ -74541,9 +74539,7 @@ angular.module('ui.router.state')
     var vm = this;
     vm.viewDetails = viewDetails;
 
-    $timeout(function () {
-      vm.lootTables = lootTables;
-    }, 300);
+    vm.lootTables = lootTables;
 
     function viewDetails(drop) {
       $timeout(function () {
@@ -74626,9 +74622,7 @@ angular.module('ui.router.state')
     vm.goToMob = goToMob;
     vm.genSizes = genSizes;
 
-    $timeout(function () {
-      vm.lootTables = lootTables;
-    }, 300);
+    vm.lootTables = lootTables;
 
     function goToMob(mob) {
       $timeout(function () {

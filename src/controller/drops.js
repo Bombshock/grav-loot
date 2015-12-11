@@ -9,9 +9,7 @@
     var vm = this;
     vm.viewDetails = viewDetails;
 
-    $timeout(function () {
-      vm.lootTables = lootTables;
-    }, 300);
+    vm.lootTables = lootTables;
 
     function viewDetails(drop) {
       $timeout(function () {

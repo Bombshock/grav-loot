@@ -11,9 +11,7 @@
     vm.goToMob = goToMob;
     vm.genSizes = genSizes;
 
-    $timeout(function () {
-      vm.lootTables = lootTables;
-    }, 300);
+    vm.lootTables = lootTables;
 
     function goToMob(mob) {
       $timeout(function () {
