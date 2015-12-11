@@ -25,27 +25,25 @@
             </tr>
         </thead>
         <tbody ng-repeat="drop in vm.item | orderBy:['hasMob', 'LevelRange.X']">
-            <tr ng-if="drop.hasMob" class="pawn">
+            <tr class="pawn">
                 <td colspan="6">
                     <div flex layout="row">
-                        <div flex>
+                        <div flex ng-if="drop.hasMob">
                             {{drop.mob.name}} {{drop.mob.type}} {{drop.mob.size}}
+                        </div>
+                        <div flex ng-if="!drop.hasMob">
+                            Anything
                         </div>
                         <div ng-if="drop.$siblings.length > 1">
                             Drops together:
                             <a href=""
                                     ng-repeat="sib in drop.$siblings"
-                                    ng-click="vm.$state.go('blueprintsDetails', {id: sib});"
+                                    ng-click="vm.$state.go('dropsDetails', {id: sib});"
                                     class="drops-together md-whiteframe-1dp">
                                 {{ $root.translate(sib) }}
                             </a>
                         </div>
                     </div>
-                </td>
-            </tr>
-            <tr ng-if="!drop.hasMob" class="pawn">
-                <td colspan="6">
-                    Anything
                 </td>
             </tr>
             <tr>
