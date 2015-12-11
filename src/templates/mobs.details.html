@@ -1,13 +1,7 @@
 <md-content flex layout="column" ng-show="vm.item">
     <md-toolbar layout="row">
         <div class="md-toolbar-tools">
-            <md-button aria-label="zurück" class="md-icon-button" ng-click="vm.$state.go('mobs')">
-                <md-icon class="fa fa-angle-left"></md-icon>
-            </md-button>
-
-            <h2>
-                {{vm.item.name}} ({{vm.item.type}})
-            </h2>
+            <h2>{{vm.item.name}} ({{vm.item.type}})</h2>
         </div>
     </md-toolbar>
 

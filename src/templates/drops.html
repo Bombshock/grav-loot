@@ -18,8 +18,12 @@
                         md-item-size="88"
                         ng-click="vm.viewDetails(item)">
                     <div class="md-list-item-text" layout="column">
-                        <h3>{{ item.key }}</h3>
-                        <h4>{{ item.type }}</h4>
+                        <h3>
+                            <span md-highlight-text="$root.searchTextBPs" md-highlight-flags="^i">{{ item.key }}</span>
+                        </h3>
+                        <h4>
+                            <span md-highlight-text="$root.searchTextBPs" md-highlight-flags="^i">{{ item.type }}</span>
+                        </h4>
                         <p>Locations: {{ item.data.length }}</p>
                     </div>
                     <md-divider ng-if="!$last"></md-divider>

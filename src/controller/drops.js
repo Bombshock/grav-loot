@@ -11,7 +11,7 @@
 
     $timeout(function () {
       vm.lootTables = lootTables;
-    }, 150);
+    }, 300);
 
     function viewDetails(drop) {
       $timeout(function () {

@@ -74296,7 +74296,7 @@ angular.module('ui.router.state')
   routesConfig.$inject = ["$urlRouterProvider", "$stateProvider"];
 
   function routesConfig($urlRouterProvider, $stateProvider) {
-    $urlRouterProvider.otherwise("/mobs");
+    $urlRouterProvider.otherwise("/drops");
 
     $stateProvider.state("mobs", {
       url: "/mobs",
@@ -74325,6 +74325,13 @@ angular.module('ui.router.state')
       controller: "DropsDetailsViewController",
       controllerAs: "vm"
     });
+
+    $stateProvider.state("armor", {
+      url: "/armor",
+      templateUrl: "src/templates/armor.html",
+      controller: "ArmorViewController",
+      controllerAs: "vm"
+    });
   }
 
 })();
@@ -74345,6 +74352,111 @@ angular.module('ui.router.state')
       .primaryPalette('blue');
 
     $mdThemingProvider.setDefaultTheme('default');
+  }
+
+})();
+
+//src/controller/armor.js
+(function () {
+  'use strict';
+
+  angular.module("app").controller("ArmorViewController", ArmorViewController);
+
+  ArmorViewController.$inject = ["lootTables", "$state", "$timeout"];
+
+  function ArmorViewController(lootTables, $state, $timeout) {
+    var vm = this;
+
+    vm.$state = $state;
+
+    lootTables.$promise.then(function () {
+      populate();
+    });
+
+    $timeout(function () {
+      vm.lootTables = lootTables;
+    }, 300);
+
+    vm.tiers = [
+      {
+        key: 'Wood',
+        name: 'ARMOR_Wood',
+        tier: 1
+      },
+      {
+        key: 'Fossil',
+        name: 'ARMOR_Fossil',
+        tier: 2
+      },
+      {
+        key: 'Ore',
+        name: 'ARMOR_Ore',
+        tier: 3
+      },
+      {
+        key: 'Gem',
+        name: 'ARMOR_Gem',
+        tier: 4
+      },
+      {
+        key: 'Plasma',
+        name: 'ARMOR_Plasma',
+        tier: 5
+      },
+      {
+        key: 'Tundra',
+        name: 'ARMOR_Tundra',
+        tier: 6
+      },
+      {
+        key: 'SunStone',
+        name: 'ARMOR_SunStone',
+        tier: 6
+      },
+      {
+        key: 'ElementX',
+        name: 'ARMOR_ElementX',
+        tier: 7
+      },
+      {
+        key: 'Magmanite',
+        name: 'ARMOR_Magmanite',
+        tier: 8
+      },
+      {
+        key: 'NK',
+        name: 'ARMOR_NK',
+        tier: 9
+      },
+      {
+        key: 'AlienTower',
+        name: 'ARMOR_AlienTower',
+        tier: 10
+      }
+    ];
+
+    function populate() {
+      for (var i = 0; i < vm.tiers.length; i++) {
+        var tier = vm.tiers[i];
+        tier.blueprints = [
+          'CIA_Equipment_Head_' + tier.key,
+          'CIA_Equipment_Shirt_' + tier.key,
+          'CIA_Equipment_Gloves_' + tier.key,
+          'CIA_Equipment_Legs_' + tier.key,
+          'CIA_Equipment_Boots_' + tier.key
+        ];
+
+        tier.blueprints = tier.blueprints.map(resolveKey);
+      }
+    }
+
+    function resolveKey(key) {
+      return {
+        data: lootTables.lootsIndexed[key],
+        key: key,
+        type: key.split("_").shift()
+      };
+    }
   }
 
 })();
@@ -74431,7 +74543,7 @@ angular.module('ui.router.state')
 
     $timeout(function () {
       vm.lootTables = lootTables;
-    }, 150);
+    }, 300);
 
     function viewDetails(drop) {
       $timeout(function () {
@@ -74513,7 +74625,10 @@ angular.module('ui.router.state')
     vm.searchText = "";
     vm.goToMob = goToMob;
     vm.genSizes = genSizes;
-    vm.lootTables = lootTables;
+
+    $timeout(function () {
+      vm.lootTables = lootTables;
+    }, 300);
 
     function goToMob(mob) {
       $timeout(function () {
@@ -74622,6 +74737,7 @@ angular.module('ui.router.state')
   window.glt.translations.en['CH_TurtleHead'] = 'Turtle';
   window.glt.translations.en['CH_UnicornHead_White'] = 'Unicorn (white)';
 
+  window.glt.translations.en['CIA'] = 'Equipment';
   window.glt.translations.en['CIA_Ammo_AssaultRifle'] = 'Ammo: Assault Rifle';
   window.glt.translations.en['CIA_Ammo_Pistol'] = 'Ammo: Pistol';
   window.glt.translations.en['CIA_Ammo_PlayerRocketLauncher'] = 'Ammo: Rocket Launcher';
@@ -74707,15 +74823,15 @@ angular.module('ui.router.state')
   window.glt.translations.en['CIA_Weapon_Melee_Magmanite_Lvl11'] = '';
   window.glt.translations.en['CIA_Weapon_Melee_Needle_Lvl11'] = '';
   window.glt.translations.en['CIA_Weapon_Melee_Tundrite_Lvl9'] = '';
-  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl3'] = '';
-  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl5'] = '';
-  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl7'] = '';
-  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl9'] = '';
-  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl10'] = '';
-  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl2'] = '';
-  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl4'] = '';
-  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl6'] = '';
-  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl8'] = '';
+  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl3'] = 'MultiTool - Mark IV';
+  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl5'] = 'MultiTool - Mark VI';
+  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl7'] = 'MultiTool - Mark VIII';
+  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl9'] = 'MultiTool - Mark X';
+  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl10'] = 'MultiTool - Mark XI';
+  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl2'] = 'MultiTool - Mark III';
+  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl4'] = 'MultiTool - Mark V';
+  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl6'] = 'MultiTool - Mark VII';
+  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl8'] = 'MultiTool - Mark IX';
   window.glt.translations.en['CIA_Weapon_Pistol_Lvl10'] = '';
   window.glt.translations.en['CIA_Weapon_Pistol_Lvl1_Normal'] = '';
   window.glt.translations.en['CIA_Weapon_Pistol_Lvl3'] = '';
@@ -74808,6 +74924,19 @@ angular.module('ui.router.state')
   window.glt.translations.en['IT_PlanetLow'] = 'low';
   window.glt.translations.en['IT_PlanetMid'] = 'mid';
   window.glt.translations.en['IT_PlanetHigh'] = 'high';
+
+  //armor
+  window.glt.translations.en['ARMOR_Wood'] = 'Wood Armor';
+  window.glt.translations.en['ARMOR_Fossil'] = 'Fossil Armor';
+  window.glt.translations.en['ARMOR_Ore'] = 'Ore Armor';
+  window.glt.translations.en['ARMOR_Gem'] = 'Gem Armor';
+  window.glt.translations.en['ARMOR_Plasma'] = 'Plasma Armor';
+  window.glt.translations.en['ARMOR_Tundra'] = 'Tundra Armor';
+  window.glt.translations.en['ARMOR_SunStone'] = 'Sun Stone Armor';
+  window.glt.translations.en['ARMOR_ElementX'] = 'Element-X Armor';
+  window.glt.translations.en['ARMOR_Magmanite'] = 'Magmanite Armor';
+  window.glt.translations.en['ARMOR_NK'] = 'Night Killer Armor';
+  window.glt.translations.en['ARMOR_AlienTower'] = 'Alien Tower Armor';
 
 })(window);
 

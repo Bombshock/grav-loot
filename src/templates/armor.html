@@ -1,0 +1,42 @@
+<md-content flex layout="column">
+    <md-toolbar class="search-bar">
+        <div class="md-toolbar-tools" layout="row">
+            Armor Tiers
+        </div>
+    </md-toolbar>
+    <md-divider></md-divider>
+    <md-content flex ng-show="vm.lootTables.data" layout="column">
+
+        <section ng-repeat="tier in vm.tiers | orderBy:[tier]">
+            <md-subheader class="armor-subheader">
+                Tier {{tier.tier}} - {{ $root.translate(tier.name) }}
+            </md-subheader>
+            <md-divider></md-divider>
+            <md-list>
+                <md-list-item class="md-3-line blueprint-list-item"
+                        ng-repeat="blueprint in tier.blueprints"
+                        ng-click="vm.$state.go('dropsDetails', {id: blueprint.key})">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>
+                            {{ $root.translate(blueprint.key) }}
+                        </h3>
+                        <h4>
+                            {{ $root.translate(blueprint.type) }}
+                        </h4>
+                        <p>
+                            Locations: {{blueprint.data.length}}
+                        </p>
+                    </div>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-list-item>
+            </md-list>
+            <md-divider ng-if="!$last"></md-divider>
+        </section>
+
+    </md-content>
+    <md-content class="md-padding" layout="column" layout-align="center center" flex ng-show="!vm.lootTables.data">
+        <div layout="row" layout-sm="column" layout-align="space-around">
+            <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
+        </div>
+    </md-content>
+</md-content>

@@ -52,6 +52,7 @@
   window.glt.translations.en['CH_TurtleHead'] = 'Turtle';
   window.glt.translations.en['CH_UnicornHead_White'] = 'Unicorn (white)';
 
+  window.glt.translations.en['CIA'] = 'Equipment';
   window.glt.translations.en['CIA_Ammo_AssaultRifle'] = 'Ammo: Assault Rifle';
   window.glt.translations.en['CIA_Ammo_Pistol'] = 'Ammo: Pistol';
   window.glt.translations.en['CIA_Ammo_PlayerRocketLauncher'] = 'Ammo: Rocket Launcher';
@@ -137,15 +138,15 @@
   window.glt.translations.en['CIA_Weapon_Melee_Magmanite_Lvl11'] = '';
   window.glt.translations.en['CIA_Weapon_Melee_Needle_Lvl11'] = '';
   window.glt.translations.en['CIA_Weapon_Melee_Tundrite_Lvl9'] = '';
-  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl3'] = '';
-  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl5'] = '';
-  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl7'] = '';
-  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl9'] = '';
-  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl10'] = '';
-  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl2'] = '';
-  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl4'] = '';
-  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl6'] = '';
-  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl8'] = '';
+  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl3'] = 'MultiTool - Mark IV';
+  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl5'] = 'MultiTool - Mark VI';
+  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl7'] = 'MultiTool - Mark VIII';
+  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl9'] = 'MultiTool - Mark X';
+  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl10'] = 'MultiTool - Mark XI';
+  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl2'] = 'MultiTool - Mark III';
+  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl4'] = 'MultiTool - Mark V';
+  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl6'] = 'MultiTool - Mark VII';
+  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl8'] = 'MultiTool - Mark IX';
   window.glt.translations.en['CIA_Weapon_Pistol_Lvl10'] = '';
   window.glt.translations.en['CIA_Weapon_Pistol_Lvl1_Normal'] = '';
   window.glt.translations.en['CIA_Weapon_Pistol_Lvl3'] = '';
@@ -238,5 +239,18 @@
   window.glt.translations.en['IT_PlanetLow'] = 'low';
   window.glt.translations.en['IT_PlanetMid'] = 'mid';
   window.glt.translations.en['IT_PlanetHigh'] = 'high';
+
+  //armor
+  window.glt.translations.en['ARMOR_Wood'] = 'Wood Armor';
+  window.glt.translations.en['ARMOR_Fossil'] = 'Fossil Armor';
+  window.glt.translations.en['ARMOR_Ore'] = 'Ore Armor';
+  window.glt.translations.en['ARMOR_Gem'] = 'Gem Armor';
+  window.glt.translations.en['ARMOR_Plasma'] = 'Plasma Armor';
+  window.glt.translations.en['ARMOR_Tundra'] = 'Tundra Armor';
+  window.glt.translations.en['ARMOR_SunStone'] = 'Sun Stone Armor';
+  window.glt.translations.en['ARMOR_ElementX'] = 'Element-X Armor';
+  window.glt.translations.en['ARMOR_Magmanite'] = 'Magmanite Armor';
+  window.glt.translations.en['ARMOR_NK'] = 'Night Killer Armor';
+  window.glt.translations.en['ARMOR_AlienTower'] = 'Alien Tower Armor';
 
 })(window);

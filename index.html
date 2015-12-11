@@ -112,6 +112,15 @@
                 margin-left: 10px;
             }
 
+            md-list-item.blueprint-list-item span.highlight {
+                color: rgb(33, 150, 243);
+            }
+
+            .md-subheader.armor-subheader {
+                background-color: rgb(33, 150, 243);
+                color: #FFF;
+            }
+
         </style>
     </head>
 
@@ -134,13 +143,13 @@
 
                 <md-content>
                     <md-list>
-                        <md-list-item ui-sref-active="active" ui-sref="mobs()" layout="row" class="menu">
-                            <p flex>Mobs</p>
+                        <md-list-item ui-sref-active="active" ui-sref="drops()" layout="row" class="menu">
+                            <p flex>Drops</p>
                             <md-icon class="fa fa-chevron-right"></md-icon>
                         </md-list-item>
                         <md-divider></md-divider>
-                        <md-list-item ui-sref-active="active" ui-sref="drops()" layout="row" class="menu">
-                            <p flex>Drops</p>
+                        <md-list-item ui-sref-active="active" ui-sref="mobs()" layout="row" class="menu">
+                            <p flex>Mobs</p>
                             <md-icon class="fa fa-chevron-right"></md-icon>
                         </md-list-item>
                         <md-divider></md-divider>

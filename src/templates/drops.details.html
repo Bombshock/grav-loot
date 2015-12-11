@@ -1,13 +1,7 @@
 <md-content flex layout="column" ng-show="vm.item">
     <md-toolbar layout="row">
         <div class="md-toolbar-tools">
-            <md-button aria-label="zurück" class="md-icon-button" ng-click="vm.$state.go('drops')">
-                <md-icon class="fa fa-angle-left"></md-icon>
-            </md-button>
-
-            <h2>
-                {{ $root.translate(vm.id) }}
-            </h2>
+            <h2>{{ $root.translate(vm.id) }}</h2>
         </div>
     </md-toolbar>
 

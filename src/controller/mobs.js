@@ -10,7 +10,10 @@
     vm.searchText = "";
     vm.goToMob = goToMob;
     vm.genSizes = genSizes;
-    vm.lootTables = lootTables;
+
+    $timeout(function () {
+      vm.lootTables = lootTables;
+    }, 300);
 
     function goToMob(mob) {
       $timeout(function () {

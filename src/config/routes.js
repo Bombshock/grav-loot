@@ -8,7 +8,7 @@
   routesConfig.$inject = ["$urlRouterProvider", "$stateProvider"];
 
   function routesConfig($urlRouterProvider, $stateProvider) {
-    $urlRouterProvider.otherwise("/mobs");
+    $urlRouterProvider.otherwise("/drops");
 
     $stateProvider.state("mobs", {
       url: "/mobs",
@@ -35,6 +35,13 @@
       url: "/drops/:id",
       templateUrl: "src/templates/drops.details.html",
       controller: "DropsDetailsViewController",
+      controllerAs: "vm"
+    });
+
+    $stateProvider.state("armor", {
+      url: "/armor",
+      templateUrl: "src/templates/armor.html",
+      controller: "ArmorViewController",
       controllerAs: "vm"
     });
   }
