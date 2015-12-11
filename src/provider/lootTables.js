@@ -6,9 +6,9 @@
 
   angular.module("app").service("lootTables", lootTablesService);
 
-  lootTablesService.$inject = ["$http", "$timeout", "$q"];
+  lootTablesService.$inject = ["$http", "$timeout", "$q", "$rootScope"];
 
-  function lootTablesService($http, $timeout, $q) {
+  function lootTablesService($http, $timeout, $q, $rootScope) {
     var lootTables = {};
     var deferred = $q.defer();
 
@@ -35,20 +35,23 @@
 
     lootTables.getLootFromObject = getLootFromObject;
 
+    function convertToArray(obj) {
+      return Object.keys(obj)
+        .filter(function (key) {
+          return obj.hasOwnProperty(key);
+        })
+        .map(function (key) {
+          return {
+            data: obj[key],
+            key: $rootScope.translate(key),
+            keyOrigin: key,
+            type: $rootScope.translate(key.split("_").shift()),
+            typeOrigin: key.split("_").shift()
+          };
+        });
+    }
+
     return lootTables;
-  }
-
-  function convertToArray(obj) {
-    return Object.keys(obj)
-      .filter(function (key) {
-        return obj.hasOwnProperty(key);
-      })
-      .map(function (key) {
-        obj[key].__key = key;
-        obj[key].__type = key.split("_").shift();
-        return obj[key];
-      });
-
   }
 
   function indexLoots(loots) {

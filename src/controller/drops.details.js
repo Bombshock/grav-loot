@@ -17,7 +17,7 @@
     vm.$state = $state;
 
     lootTables.$promise.then(function () {
-      vm.item = lootTables.lootsIndexed[vm.id];
+      vm.item = lootTables.lootsIndexed[vm.id] || [];
       init(vm.item);
     });
 
@@ -28,6 +28,7 @@
         var match;
         drop.mob = false;
         drop.hasMob = false;
+        drop.hasSiblings = drop.$siblings.length > 1;
 
         if (regex.pawn.test(parent)) {
           match = parent.match(regex.pawn);
@@ -38,7 +39,7 @@
             name: match[2],
             size: match[4]
           };
-        } else if(regex.foe.test(parent)) {
+        } else if (regex.foe.test(parent)) {
           match = parent.match(regex.foe);
           drop.hasMob = true;
           drop.mob = {
@@ -47,7 +48,7 @@
             name: 'Any',
             size: match[2] ? match[2] : 'normal'
           };
-        } else if(regex.fauna.test(parent)) {
+        } else if (regex.fauna.test(parent)) {
           match = parent.match(regex.fauna);
           drop.hasMob = true;
           drop.mob = {

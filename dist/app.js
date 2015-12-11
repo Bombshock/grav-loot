@@ -74369,7 +74369,7 @@ angular.module('ui.router.state')
     vm.$state = $state;
 
     lootTables.$promise.then(function () {
-      vm.item = lootTables.lootsIndexed[vm.id];
+      vm.item = lootTables.lootsIndexed[vm.id] || [];
       init(vm.item);
     });
 
@@ -74380,6 +74380,7 @@ angular.module('ui.router.state')
         var match;
         drop.mob = false;
         drop.hasMob = false;
+        drop.hasSiblings = drop.$siblings.length > 1;
 
         if (regex.pawn.test(parent)) {
           match = parent.match(regex.pawn);
@@ -74390,7 +74391,7 @@ angular.module('ui.router.state')
             name: match[2],
             size: match[4]
           };
-        } else if(regex.foe.test(parent)) {
+        } else if (regex.foe.test(parent)) {
           match = parent.match(regex.foe);
           drop.hasMob = true;
           drop.mob = {
@@ -74399,7 +74400,7 @@ angular.module('ui.router.state')
             name: 'Any',
             size: match[2] ? match[2] : 'normal'
           };
-        } else if(regex.fauna.test(parent)) {
+        } else if (regex.fauna.test(parent)) {
           match = parent.match(regex.fauna);
           drop.hasMob = true;
           drop.mob = {
@@ -74432,9 +74433,9 @@ angular.module('ui.router.state')
       vm.lootTables = lootTables;
     }, 150);
 
-    function viewDetails(bp) {
+    function viewDetails(drop) {
       $timeout(function () {
-        $state.go("dropsDetails", {id: bp.__key});
+        $state.go("dropsDetails", {id: drop.keyOrigin});
       }, 0);
     }
   }
@@ -74819,9 +74820,9 @@ angular.module('ui.router.state')
 
   angular.module("app").service("lootTables", lootTablesService);
 
-  lootTablesService.$inject = ["$http", "$timeout", "$q"];
+  lootTablesService.$inject = ["$http", "$timeout", "$q", "$rootScope"];
 
-  function lootTablesService($http, $timeout, $q) {
+  function lootTablesService($http, $timeout, $q, $rootScope) {
     var lootTables = {};
     var deferred = $q.defer();
 
@@ -74848,20 +74849,23 @@ angular.module('ui.router.state')
 
     lootTables.getLootFromObject = getLootFromObject;
 
+    function convertToArray(obj) {
+      return Object.keys(obj)
+        .filter(function (key) {
+          return obj.hasOwnProperty(key);
+        })
+        .map(function (key) {
+          return {
+            data: obj[key],
+            key: $rootScope.translate(key),
+            keyOrigin: key,
+            type: $rootScope.translate(key.split("_").shift()),
+            typeOrigin: key.split("_").shift()
+          };
+        });
+    }
+
     return lootTables;
-  }
-
-  function convertToArray(obj) {
-    return Object.keys(obj)
-      .filter(function (key) {
-        return obj.hasOwnProperty(key);
-      })
-      .map(function (key) {
-        obj[key].__key = key;
-        obj[key].__type = key.split("_").shift();
-        return obj[key];
-      });
-
   }
 
   function indexLoots(loots) {

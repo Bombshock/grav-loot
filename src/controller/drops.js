@@ -13,9 +13,9 @@
       vm.lootTables = lootTables;
     }, 150);
 
-    function viewDetails(bp) {
+    function viewDetails(drop) {
       $timeout(function () {
-        $state.go("dropsDetails", {id: bp.__key});
+        $state.go("dropsDetails", {id: drop.keyOrigin});
       }, 0);
     }
   }

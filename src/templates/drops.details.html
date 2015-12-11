@@ -24,7 +24,7 @@
                 <th>Job</th>
             </tr>
         </thead>
-        <tbody ng-repeat="drop in vm.item | orderBy:['hasMob', 'LevelRange.X']">
+        <tbody ng-repeat="drop in vm.item | orderBy:['hasSiblings', 'hasMob', 'LevelRange.X']">
             <tr class="pawn">
                 <td colspan="6">
                     <div flex layout="row">
