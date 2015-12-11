@@ -15,22 +15,23 @@
     lootTables.$promise = deferred.promise;
 
     $http.get('grav-settings/DefaultDataObject_LootTables.ini')
-        .success(function (result) {
-          $timeout(function () {
-            lootTables.data = parseIni(result);
-            lootTables.loots = extractLoots(lootTables.data);
-            lootTables.lootsIndexed = indexLoots(lootTables.loots);
-            lootTables.lootsArray = convertToArray(lootTables.lootsIndexed);
-            lootTables.mobs = extractMobs(lootTables.data);
-            lootTables.mobsGrouped = groupMobs(lootTables.mobs);
-            lootTables.mobsGroupedArray = groupMobAsArray(lootTables.mobsGrouped);
-            deferred.resolve(lootTables);
-          }, 1000);
-        })
-        .catch(function (err) {
-          console.error(err);
-          deferred.reject(err);
-        });
+      .success(function (result) {
+        $timeout(function () {
+          lootTables.data = parseIni(result);
+          lootTables.loots = extractLoots(lootTables.data);
+          lootTables.lootsIndexed = indexLoots(lootTables.loots);
+          lootTables.lootsArray = convertToArray(lootTables.lootsIndexed);
+          lootTables.mobs = extractMobs(lootTables.data);
+          lootTables.mobsGrouped = groupMobs(lootTables.mobs);
+          lootTables.mobsGroupedArray = groupMobAsArray(lootTables.mobsGrouped);
+          console.log("lootTables %o", lootTables);
+          deferred.resolve(lootTables);
+        }, 1000);
+      })
+      .catch(function (err) {
+        console.error(err);
+        deferred.reject(err);
+      });
 
     lootTables.getLootFromObject = getLootFromObject;
 
@@ -39,12 +40,14 @@
 
   function convertToArray(obj) {
     return Object.keys(obj)
-        .filter(function (key) {
-          return obj.hasOwnProperty(key);
-        })
-        .map(function (key) {
-          return angular.extend({}, obj[key], {__key: key});
-        });
+      .filter(function (key) {
+        return obj.hasOwnProperty(key);
+      })
+      .map(function (key) {
+        obj[key].__key = key;
+        obj[key].__type = key.split("_").shift();
+        return obj[key];
+      });
 
   }
 
@@ -71,7 +74,8 @@
         bps.forEach(function (bp) {
           var data = angular.copy(bpData);
           delete data.DroppedBlueprints;
-          data.$parent = parent
+          data.$parent = parent;
+          data.$siblings = bps;
           output[bp] = output[bp] || [];
           output[bp].push(data);
         });
@@ -143,8 +147,8 @@
   }
 
   var regex = {
-    param: /(\S*)=(.*)/,
-    args: /^(\S*)=\((.*)\)$/,
+    param: /([^=]*)=(.*)/,
+    args: /^([^=]*)=\((.*)\)$/,
     section: /\s*\[\s*([^\]]*)\s*\]\s*/,
     comment: /[;|#](.*)$/
   };
@@ -186,6 +190,7 @@
     val = val.replace(/^"/, "").replace(/"$/, "");
     var match = val.match(/\((.*)\)/);
 
+
     if (match) {
       var params = match[1];
       if (params) {
@@ -205,6 +210,12 @@
     if (/[\d*\.\d*f|\d*]/.test(val)) {
       val = parseFloat(val);
     }
+    if (val === "TRUE") {
+      val = true;
+    }
+    if (val === "FALSE") {
+      val = false;
+    }
 
     return val;
   }
@@ -213,6 +224,12 @@
     var open = 0;
     var soFar = "";
     var out = [];
+
+    var match = str.match(/^\((.*)\)$/);
+
+    if (match) {
+      str = match[1];
+    }
 
     for (var i = 0; i < str.length; i++) {
       var char = str[i];

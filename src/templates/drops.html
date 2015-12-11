@@ -12,7 +12,7 @@
 
     <md-divider></md-divider>
 
-    <md-content flex ng-show="vm.lootTables.data" layout="row">
+    <md-content flex ng-show="vm.lootTables.data" layout="column">
 
         <md-virtual-repeat-container id="vertical-container" flex>
             <md-list>
@@ -20,13 +20,19 @@
                               md-virtual-repeat="item in vm.lootTables.lootsArray | filter:$root.searchTextBPs | orderBy:'__key'"
                               md-item-size="88"
                               ng-click="vm.viewDetails(item)">
-                    <div class="md-list-item-text" layout="row">
-                        <h3>{{ item.__key }}</h3>
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{ $root.translate(item.__key) }}</h3>
+                        <h4>{{ $root.translate(item.__type) }}</h4>
+                        <p>Locations: {{ item.length }}</p>
                     </div>
                     <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>
             </md-list>
         </md-virtual-repeat-container>
+
+        <div style="height: 10px;">
+            <!-- temporary workaround to prevent the virtual-repeat from scroll-bouncing -->
+        </div>
 
     </md-content>
 

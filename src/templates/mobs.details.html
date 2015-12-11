@@ -18,10 +18,12 @@
             <md-content id="editor" flex layout="column">
 
                 <md-list>
-                    <md-list-item ng-repeat-start="(key, value) in size.loot">
-                        <p>{{key}}</p>
+                    <md-list-item class="md-3-line blueprint-list-item" ng-repeat="(key, value) in size.loot">
+                        <div class="md-list-item-text" layout="column">
+                            <h3>{{ $root.translate(key) }}</h3>
+                        </div>
+                        <md-divider ng-if="!$last"></md-divider>
                     </md-list-item>
-                    <md-divider ng-repeat-end ng-if="!$last"></md-divider>
                 </md-list>
 
             </md-content>

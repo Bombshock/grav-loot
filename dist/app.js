@@ -1,4 +1,4 @@
-/*! grav-loot - v1.0.0 - 2015-12-10 */
+/*! grav-loot - v1.0.0 - 2015-12-11 */
 
 //bower_components/lodash/lodash.js
 /**
@@ -74312,17 +74312,17 @@ angular.module('ui.router.state')
       controllerAs: "vm"
     });
 
-    $stateProvider.state("blueprints", {
-      url: "/blueprints",
-      templateUrl: "src/templates/blueprints.html",
-      controller: "BlueprintsViewController",
+    $stateProvider.state("drops", {
+      url: "/drops",
+      templateUrl: "src/templates/drops.html",
+      controller: "DropsViewController",
       controllerAs: "vm"
     });
 
-    $stateProvider.state("blueprintsDetails", {
-      url: "/blueprints/:id",
-      templateUrl: "src/templates/blueprints.details.html",
-      controller: "BlueprintsDetailsViewController",
+    $stateProvider.state("dropsDetails", {
+      url: "/drops/:id",
+      templateUrl: "src/templates/drops.details.html",
+      controller: "DropsDetailsViewController",
       controllerAs: "vm"
     });
   }
@@ -74349,43 +74349,92 @@ angular.module('ui.router.state')
 
 })();
 
-//src/controller/blueprints.details.js
+//src/controller/drops.details.js
 (function () {
   'use strict';
 
-  angular.module("app").controller("BlueprintsDetailsViewController", BlueprintsDetailsViewController);
+  angular.module("app").controller("DropsDetailsViewController", DropsDetailsViewController);
 
-  BlueprintsDetailsViewController.$inject = ["lootTables", "$state"];
+  DropsDetailsViewController.$inject = ["lootTables", "$state"];
 
-  function BlueprintsDetailsViewController(lootTables, $state) {
+  function DropsDetailsViewController(lootTables, $state) {
     var vm = this;
+    var regex = {
+      pawn: /CAGPawn_([a-z0-9]*)_([a-z0-9]*)(_([a-z0-9]*))*/i,
+      foe: /Foe(_([a-z0-9]*))?/i,
+      fauna: /Fauna(_([a-z0-9]*))?/i
+    };
 
     vm.id = $state.params.id;
     vm.$state = $state;
 
     lootTables.$promise.then(function () {
       vm.item = lootTables.lootsIndexed[vm.id];
+      init(vm.item);
     });
+
+    function init(drops) {
+      for (var i = 0; i < drops.length; i++) {
+        var drop = drops[i];
+        var parent = drop.$parent;
+        var match;
+        drop.mob = false;
+        drop.hasMob = false;
+
+        if (regex.pawn.test(parent)) {
+          match = parent.match(regex.pawn);
+          drop.hasMob = true;
+          drop.mob = {
+            explicit: true,
+            type: match[1],
+            name: match[2],
+            size: match[4]
+          };
+        } else if(regex.foe.test(parent)) {
+          match = parent.match(regex.foe);
+          drop.hasMob = true;
+          drop.mob = {
+            explicit: false,
+            type: 'Foe',
+            name: 'Any',
+            size: match[2] ? match[2] : 'normal'
+          };
+        } else if(regex.fauna.test(parent)) {
+          match = parent.match(regex.fauna);
+          drop.hasMob = true;
+          drop.mob = {
+            explicit: false,
+            type: 'Fauna',
+            name: 'Any',
+            size: match[2] ? match[2] : 'normal'
+          };
+        }
+
+      }
+    }
   }
 
 })();
 
-//src/controller/blueprints.js
+//src/controller/drops.js
 (function () {
   'use strict';
 
-  angular.module("app").controller("BlueprintsViewController", BlueprintsViewController);
+  angular.module("app").controller("DropsViewController", DropsViewController);
 
-  BlueprintsViewController.$inject = ["lootTables", "$state", "$timeout"];
+  DropsViewController.$inject = ["lootTables", "$state", "$timeout"];
 
-  function BlueprintsViewController(lootTables, $state, $timeout) {
+  function DropsViewController(lootTables, $state, $timeout) {
     var vm = this;
     vm.viewDetails = viewDetails;
-    vm.lootTables = lootTables;
+
+    $timeout(function () {
+      vm.lootTables = lootTables;
+    }, 150);
 
     function viewDetails(bp) {
       $timeout(function () {
-        $state.go("blueprintsDetails", {id: bp.__key});
+        $state.go("dropsDetails", {id: bp.__key});
       }, 0);
     }
   }
@@ -74517,6 +74566,250 @@ angular.module('ui.router.state')
 
 })();
 
+//src/locals/en.js
+(function (window) {
+  'use strict';
+
+  window.glt = window.glt || {};
+  window.glt.translations = window.glt.translations || {};
+  window.glt.translations.en = {};
+
+  /*jshint -W069*/
+
+  // all the blueprints
+  window.glt.translations.en['CDO'] = 'Base Item';
+  window.glt.translations.en['CDO_AreaTotem'] = 'Area Totem';
+  window.glt.translations.en['CDO_BaseStorageBin'] = 'Storage Bin';
+  window.glt.translations.en['CDO_BubbleShield'] = 'Bubble Shield';
+  window.glt.translations.en['CDO_Door'] = 'Door';
+  window.glt.translations.en['CDO_DrillPlatform'] = 'Drill Platform';
+  window.glt.translations.en['CDO_Factory'] = 'Factory';
+  window.glt.translations.en['CDO_Generator'] = 'Generator';
+  window.glt.translations.en['CDO_GunTurret'] = 'Gun Turret';
+  window.glt.translations.en['CDO_GunTurret_AA'] = '';
+  window.glt.translations.en['CDO_Harvester'] = 'Harvester';
+  window.glt.translations.en['CDO_Kitchenette'] = 'Kitchenette';
+  window.glt.translations.en['CDO_MonsterSummoner'] = 'Monster Summoner';
+  window.glt.translations.en['CDO_NexusShieldNode'] = 'Nexus Shield';
+  window.glt.translations.en['CDO_PBRoom_Teleporter'] = 'Teleporter Room';
+  window.glt.translations.en['CDO_ShieldBuster'] = 'Shield Buster (emp?)';
+  window.glt.translations.en['CDO_StarGateMoon'] = 'StarGate: Moon';
+  window.glt.translations.en['CDO_StarGatePlanetHigh'] = 'StarGate: High Planet';
+  window.glt.translations.en['CDO_StarGatePlanetLow'] = 'StarGate: Low Planet';
+  window.glt.translations.en['CDO_StarGatePlanetMid'] = 'StarGate: Mid Planet';
+  window.glt.translations.en['CDO_VehicleFactory'] = 'Vehicle Factory';
+  window.glt.translations.en['CDO_WorldArtifactOpener'] = 'Artifact Opener';
+
+  window.glt.translations.en['CH'] = 'Hat';
+  window.glt.translations.en['CH_AlienMask'] = 'Alien Mask';
+  window.glt.translations.en['CH_BitMonsterBox'] = 'BitMonster Box';
+  window.glt.translations.en['CH_Cowboy'] = 'Cowboy';
+  window.glt.translations.en['CH_Cowboy_Black'] = 'Cowboy (black)';
+  window.glt.translations.en['CH_HalloweenDemonHat'] = 'Halloween Demon';
+  window.glt.translations.en['CH_HorseHead_Black'] = 'Horse Head (black)';
+  window.glt.translations.en['CH_HorseHead_Brown'] = 'Horse Head (brown)';
+  window.glt.translations.en['CH_HorseHead_Burgundy'] = 'Horse Head (burgundy ...  is that even a color?)';
+  window.glt.translations.en['CH_HorseHead_Purple'] = 'Horse Head (purple)';
+  window.glt.translations.en['CH_JackOLanternHat'] = 'Jack\'O\'Lantern';
+  window.glt.translations.en['CH_LionMask'] = 'Lion';
+  window.glt.translations.en['CH_Sana'] = 'Sana';
+  window.glt.translations.en['CH_Skull'] = 'Skull';
+  window.glt.translations.en['CH_Soda'] = 'Soda';
+  window.glt.translations.en['CH_StarTopHat'] = 'Start Top';
+  window.glt.translations.en['CH_Toast'] = 'Toast';
+  window.glt.translations.en['CH_TurkeyHead'] = 'Turkey';
+  window.glt.translations.en['CH_TurtleHead'] = 'Turtle';
+  window.glt.translations.en['CH_UnicornHead_White'] = 'Unicorn (white)';
+
+  window.glt.translations.en['CIA_Ammo_AssaultRifle'] = 'Ammo: Assault Rifle';
+  window.glt.translations.en['CIA_Ammo_Pistol'] = 'Ammo: Pistol';
+  window.glt.translations.en['CIA_Ammo_PlayerRocketLauncher'] = 'Ammo: Rocket Launcher';
+  window.glt.translations.en['CIA_Ammo_SMG'] = 'Ammo: SMG';
+  window.glt.translations.en['CIA_Ammo_Shotgun'] = 'Ammo: Shotgun';
+  window.glt.translations.en['CIA_Equipment_Boots_AlienTower'] = 'AlienTower: Boots';
+  window.glt.translations.en['CIA_Equipment_Boots_ElementX'] = '';
+  window.glt.translations.en['CIA_Equipment_Boots_Fossil'] = '';
+  window.glt.translations.en['CIA_Equipment_Boots_Gem'] = '';
+  window.glt.translations.en['CIA_Equipment_Boots_Magmanite'] = '';
+  window.glt.translations.en['CIA_Equipment_Boots_NK'] = '';
+  window.glt.translations.en['CIA_Equipment_Boots_Ore'] = '';
+  window.glt.translations.en['CIA_Equipment_Boots_Plasma'] = '';
+  window.glt.translations.en['CIA_Equipment_Boots_SunStone'] = '';
+  window.glt.translations.en['CIA_Equipment_Boots_Tundra'] = '';
+  window.glt.translations.en['CIA_Equipment_Boots_Wood'] = '';
+  window.glt.translations.en['CIA_Equipment_DoubleJumpBoots'] = '';
+  window.glt.translations.en['CIA_Equipment_FrogJumpBoots'] = '';
+  window.glt.translations.en['CIA_Equipment_GiantBirdRunBoots'] = '';
+  window.glt.translations.en['CIA_Equipment_Gloves_AlienTower'] = 'AlienTower: Gloves';
+  window.glt.translations.en['CIA_Equipment_Gloves_ElementX'] = '';
+  window.glt.translations.en['CIA_Equipment_Gloves_Fossil'] = '';
+  window.glt.translations.en['CIA_Equipment_Gloves_Gem'] = '';
+  window.glt.translations.en['CIA_Equipment_Gloves_Magmanite'] = '';
+  window.glt.translations.en['CIA_Equipment_Gloves_NK'] = '';
+  window.glt.translations.en['CIA_Equipment_Gloves_Ore'] = '';
+  window.glt.translations.en['CIA_Equipment_Gloves_Plasma'] = '';
+  window.glt.translations.en['CIA_Equipment_Gloves_SunStone'] = '';
+  window.glt.translations.en['CIA_Equipment_Gloves_Tundra'] = '';
+  window.glt.translations.en['CIA_Equipment_Gloves_Wood'] = '';
+  window.glt.translations.en['CIA_Equipment_Head_AlienTower'] = 'AlienTower: Head';
+  window.glt.translations.en['CIA_Equipment_Head_ElementX'] = '';
+  window.glt.translations.en['CIA_Equipment_Head_Fossil'] = '';
+  window.glt.translations.en['CIA_Equipment_Head_Gem'] = '';
+  window.glt.translations.en['CIA_Equipment_Head_Magmanite'] = '';
+  window.glt.translations.en['CIA_Equipment_Head_NK'] = '';
+  window.glt.translations.en['CIA_Equipment_Head_Ore'] = '';
+  window.glt.translations.en['CIA_Equipment_Head_Plasma'] = '';
+  window.glt.translations.en['CIA_Equipment_Head_SunStone'] = '';
+  window.glt.translations.en['CIA_Equipment_Head_Tundra'] = '';
+  window.glt.translations.en['CIA_Equipment_Head_Wood'] = '';
+  window.glt.translations.en['CIA_Equipment_Legs_AlienTower'] = 'AlienTower: Legs';
+  window.glt.translations.en['CIA_Equipment_Legs_ElementX'] = '';
+  window.glt.translations.en['CIA_Equipment_Legs_Fossil'] = '';
+  window.glt.translations.en['CIA_Equipment_Legs_Gem'] = '';
+  window.glt.translations.en['CIA_Equipment_Legs_Magmanite'] = '';
+  window.glt.translations.en['CIA_Equipment_Legs_NK'] = '';
+  window.glt.translations.en['CIA_Equipment_Legs_Ore'] = '';
+  window.glt.translations.en['CIA_Equipment_Legs_Plasma'] = '';
+  window.glt.translations.en['CIA_Equipment_Legs_SunStone'] = '';
+  window.glt.translations.en['CIA_Equipment_Legs_Tundra'] = '';
+  window.glt.translations.en['CIA_Equipment_Legs_Wood'] = '';
+  window.glt.translations.en['CIA_Equipment_Shirt_AlienTower'] = 'AlienTower: Shirt';
+  window.glt.translations.en['CIA_Equipment_Shirt_ElementX'] = '';
+  window.glt.translations.en['CIA_Equipment_Shirt_Fossil'] = '';
+  window.glt.translations.en['CIA_Equipment_Shirt_Gem'] = '';
+  window.glt.translations.en['CIA_Equipment_Shirt_Magmanite'] = '';
+  window.glt.translations.en['CIA_Equipment_Shirt_NK'] = '';
+  window.glt.translations.en['CIA_Equipment_Shirt_Ore'] = '';
+  window.glt.translations.en['CIA_Equipment_Shirt_Plasma'] = '';
+  window.glt.translations.en['CIA_Equipment_Shirt_SunStone'] = '';
+  window.glt.translations.en['CIA_Equipment_Shirt_Tundra'] = '';
+  window.glt.translations.en['CIA_Equipment_Shirt_Wood'] = '';
+  window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl0_Normal'] = '';
+  window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl1'] = '';
+  window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl3'] = '';
+  window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl5'] = '';
+  window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl7'] = '';
+  window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl8'] = '';
+  window.glt.translations.en['CIA_Weapon_Melee2_Lvl4'] = '';
+  window.glt.translations.en['CIA_Weapon_Melee_AlienTower_Lvl11'] = 'AlienTower Weapon (superior - melee)';
+  window.glt.translations.en['CIA_Weapon_Melee_Axe_Lvl11'] = 'Axe (superior - melee)';
+  window.glt.translations.en['CIA_Weapon_Melee_Block_Lvl11'] = '';
+  window.glt.translations.en['CIA_Weapon_Melee_Circle_Lvl11'] = '';
+  window.glt.translations.en['CIA_Weapon_Melee_Cleaver_Lvl11'] = '';
+  window.glt.translations.en['CIA_Weapon_Melee_Curved_Lvl11'] = '';
+  window.glt.translations.en['CIA_Weapon_Melee_Lvl2_Normal'] = '';
+  window.glt.translations.en['CIA_Weapon_Melee_Lvl3_Normal'] = '';
+  window.glt.translations.en['CIA_Weapon_Melee_Lvl5'] = '';
+  window.glt.translations.en['CIA_Weapon_Melee_Lvl6'] = '';
+  window.glt.translations.en['CIA_Weapon_Melee_Lvl7'] = '';
+  window.glt.translations.en['CIA_Weapon_Melee_Lvl9'] = '';
+  window.glt.translations.en['CIA_Weapon_Melee_Magmanite_Lvl11'] = '';
+  window.glt.translations.en['CIA_Weapon_Melee_Needle_Lvl11'] = '';
+  window.glt.translations.en['CIA_Weapon_Melee_Tundrite_Lvl9'] = '';
+  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl3'] = '';
+  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl5'] = '';
+  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl7'] = '';
+  window.glt.translations.en['CIA_Weapon_MultiTool2_Lvl9'] = '';
+  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl10'] = '';
+  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl2'] = '';
+  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl4'] = '';
+  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl6'] = '';
+  window.glt.translations.en['CIA_Weapon_MultiTool_Lvl8'] = '';
+  window.glt.translations.en['CIA_Weapon_Pistol_Lvl10'] = '';
+  window.glt.translations.en['CIA_Weapon_Pistol_Lvl1_Normal'] = '';
+  window.glt.translations.en['CIA_Weapon_Pistol_Lvl3'] = '';
+  window.glt.translations.en['CIA_Weapon_Pistol_Lvl5'] = '';
+  window.glt.translations.en['CIA_Weapon_Pistol_Lvl7'] = '';
+  window.glt.translations.en['CIA_Weapon_Pistol_Lvl9'] = '';
+  window.glt.translations.en['CIA_Weapon_PlayerRocketLauncher_AntiVehicle_Lvl0'] = '';
+  window.glt.translations.en['CIA_Weapon_PlayerRocketLauncher_AntiVehicle_Lvl1'] = '';
+  window.glt.translations.en['CIA_Weapon_PlayerRocketLauncher_Lvl0'] = '';
+  window.glt.translations.en['CIA_Weapon_PlayerRocketLauncher_Lvl1'] = '';
+  window.glt.translations.en['CIA_Weapon_PlayerRocketLauncher_Lvl2'] = '';
+  window.glt.translations.en['CIA_Weapon_SMG_Lvl0'] = '';
+  window.glt.translations.en['CIA_Weapon_SMG_Lvl1'] = '';
+  window.glt.translations.en['CIA_Weapon_SMG_Lvl2'] = '';
+  window.glt.translations.en['CIA_Weapon_SMG_Lvl3'] = '';
+  window.glt.translations.en['CIA_Weapon_SMG_Lvl4'] = '';
+  window.glt.translations.en['CIA_Weapon_SMG_Lvl6'] = '';
+  window.glt.translations.en['CIA_Weapon_Shotgun_Lvl0_Normal'] = '';
+  window.glt.translations.en['CIA_Weapon_Shotgun_Lvl1'] = '';
+  window.glt.translations.en['CIA_Weapon_Shotgun_Lvl3'] = '';
+  window.glt.translations.en['CIA_Weapon_Shotgun_Lvl5'] = '';
+  window.glt.translations.en['CIA_Weapon_Shotgun_Lvl7'] = '';
+  window.glt.translations.en['CIA_Weapon_Shotgun_Lvl8'] = '';
+
+  window.glt.translations.en['CIF_Trap_Landmine'] = 'Landmine';
+  window.glt.translations.en['CIF_Trap_LandmineStunner'] = 'Landmine (stun)';
+  window.glt.translations.en['CIF_Vehicle_Jetpack_Lvl0'] = 'Jetpack';
+  window.glt.translations.en['CIF_Vehicle_Jetpack_Lvl1'] = 'Jetpack+';
+  window.glt.translations.en['CIF_Vehicle_Monocycle_Lvl0'] = 'Monocycle';
+  window.glt.translations.en['CIF_Vehicle_Monocycle_Lvl1'] = 'Monocycle+';
+  window.glt.translations.en['CIF_Vehicle_WingSuit'] = 'WingSuit';
+  window.glt.translations.en['CIF_Vehicle_WingSuitBird'] = 'WingSuit (bird)';
+  window.glt.translations.en['CIF_Vehicle_WingSuitPlus'] = 'WingSuit+   ';
+
+  window.glt.translations.en['CIP'] = 'Pet';
+  window.glt.translations.en['CIP_PetConstruction'] = 'Constructo Bot';
+  window.glt.translations.en['CIP_PetDamageBooster'] = 'Damage Booster';
+  window.glt.translations.en['CIP_PetHarvestBooster'] = 'Harvest Bosster';
+  window.glt.translations.en['CIP_PetHeal'] = 'Heal';
+  window.glt.translations.en['CIP_PetLight'] = 'Light';
+  window.glt.translations.en['CIP_PetRunSpeedBooster'] = 'Run Speed Booster';
+  window.glt.translations.en['CIP_PetXP'] = 'XP';
+
+  window.glt.translations.en['CISS'] = 'Stim';
+  window.glt.translations.en['CISS_DamageStim'] = 'Damage';
+  window.glt.translations.en['CISS_DefenseStim'] = 'Defense';
+  window.glt.translations.en['CISS_Firework_Common'] = 'Firework (common)';
+  window.glt.translations.en['CISS_Firework_Rare'] = 'Firework (rare)';
+  window.glt.translations.en['CISS_Firework_Uncommon'] = 'Firework (uncommon)';
+  window.glt.translations.en['CISS_HealthStim'] = 'Health';
+  window.glt.translations.en['CISS_InvisStim'] = 'Invis';
+  window.glt.translations.en['CISS_SpeedStim'] = 'Speed';
+
+  window.glt.translations.en['CIVF'] = 'Vehicle (deploy)';
+  window.glt.translations.en['CIVF_DuneBuggy'] = 'Dune Buggy';
+  window.glt.translations.en['CIVF_Tank'] = 'Tank';
+  window.glt.translations.en['CIVF_Hammerhead'] = 'Hammerhead';
+
+  window.glt.translations.en['KIT'] = 'Consumable';
+  window.glt.translations.en['KIT_EFB_Cold'] = 'Hot Chocolate';
+  window.glt.translations.en['KIT_EFB_Heat'] = '';
+  window.glt.translations.en['KIT_EFB_LowOxygen'] = '';
+  window.glt.translations.en['KIT_EFB_Radiation'] = '';
+  window.glt.translations.en['KIT_Food_CandyCorn'] = '';
+  window.glt.translations.en['KIT_Food_Lollipop'] = '';
+  window.glt.translations.en['KIT_Food_WrappedCandy'] = '';
+  window.glt.translations.en['KIT_Ration_Large'] = 'Ration (large)';
+
+  window.glt.translations.en['PlayerJob'] = 'Player Job';
+  window.glt.translations.en['PlayerJob_Acrobat'] = 'Acrobat';
+  window.glt.translations.en['PlayerJob_Engineer'] = 'Engineer';
+  window.glt.translations.en['PlayerJob_Hunter'] = 'Hunter';
+  window.glt.translations.en['PlayerJob_Pilot'] = 'Pilot';
+  window.glt.translations.en['PlayerJob_Prospector'] = 'Prospector';
+  window.glt.translations.en['PlayerJob_Scientist'] = 'Scientist';
+
+  //some other shit
+  //element types
+  window.glt.translations.en['ET_Normal'] = 'normal';
+  window.glt.translations.en['ET_Fire'] = 'fire';
+  window.glt.translations.en['ET_Ice'] = 'ice';
+  window.glt.translations.en['ET_Electric'] = 'electric';
+  window.glt.translations.en['ET_Poison'] = 'poison';
+  window.glt.translations.en['ET_PlayerSoul'] = 'player soul';
+  window.glt.translations.en['ET_Moonlight'] = 'moon light';
+
+  //instance types
+  window.glt.translations.en['IT_PlanetHome'] = 'home';
+  window.glt.translations.en['IT_Moon'] = 'moon';
+  window.glt.translations.en['IT_PlanetLow'] = 'low';
+  window.glt.translations.en['IT_PlanetMid'] = 'mid';
+  window.glt.translations.en['IT_PlanetHigh'] = 'high';
+
+})(window);
+
 //src/provider/lootTables.js
 /*global angular*/
 /*global _*/
@@ -74535,22 +74828,23 @@ angular.module('ui.router.state')
     lootTables.$promise = deferred.promise;
 
     $http.get('grav-settings/DefaultDataObject_LootTables.ini')
-        .success(function (result) {
-          $timeout(function () {
-            lootTables.data = parseIni(result);
-            lootTables.loots = extractLoots(lootTables.data);
-            lootTables.lootsIndexed = indexLoots(lootTables.loots);
-            lootTables.lootsArray = convertToArray(lootTables.lootsIndexed);
-            lootTables.mobs = extractMobs(lootTables.data);
-            lootTables.mobsGrouped = groupMobs(lootTables.mobs);
-            lootTables.mobsGroupedArray = groupMobAsArray(lootTables.mobsGrouped);
-            deferred.resolve(lootTables);
-          }, 1000);
-        })
-        .catch(function (err) {
-          console.error(err);
-          deferred.reject(err);
-        });
+      .success(function (result) {
+        $timeout(function () {
+          lootTables.data = parseIni(result);
+          lootTables.loots = extractLoots(lootTables.data);
+          lootTables.lootsIndexed = indexLoots(lootTables.loots);
+          lootTables.lootsArray = convertToArray(lootTables.lootsIndexed);
+          lootTables.mobs = extractMobs(lootTables.data);
+          lootTables.mobsGrouped = groupMobs(lootTables.mobs);
+          lootTables.mobsGroupedArray = groupMobAsArray(lootTables.mobsGrouped);
+          console.log("lootTables %o", lootTables);
+          deferred.resolve(lootTables);
+        }, 1000);
+      })
+      .catch(function (err) {
+        console.error(err);
+        deferred.reject(err);
+      });
 
     lootTables.getLootFromObject = getLootFromObject;
 
@@ -74559,12 +74853,14 @@ angular.module('ui.router.state')
 
   function convertToArray(obj) {
     return Object.keys(obj)
-        .filter(function (key) {
-          return obj.hasOwnProperty(key);
-        })
-        .map(function (key) {
-          return angular.extend({}, obj[key], {__key: key});
-        });
+      .filter(function (key) {
+        return obj.hasOwnProperty(key);
+      })
+      .map(function (key) {
+        obj[key].__key = key;
+        obj[key].__type = key.split("_").shift();
+        return obj[key];
+      });
 
   }
 
@@ -74591,7 +74887,8 @@ angular.module('ui.router.state')
         bps.forEach(function (bp) {
           var data = angular.copy(bpData);
           delete data.DroppedBlueprints;
-          data.$parent = parent
+          data.$parent = parent;
+          data.$siblings = bps;
           output[bp] = output[bp] || [];
           output[bp].push(data);
         });
@@ -74663,8 +74960,8 @@ angular.module('ui.router.state')
   }
 
   var regex = {
-    param: /(\S*)=(.*)/,
-    args: /^(\S*)=\((.*)\)$/,
+    param: /([^=]*)=(.*)/,
+    args: /^([^=]*)=\((.*)\)$/,
     section: /\s*\[\s*([^\]]*)\s*\]\s*/,
     comment: /[;|#](.*)$/
   };
@@ -74706,6 +75003,7 @@ angular.module('ui.router.state')
     val = val.replace(/^"/, "").replace(/"$/, "");
     var match = val.match(/\((.*)\)/);
 
+
     if (match) {
       var params = match[1];
       if (params) {
@@ -74725,6 +75023,12 @@ angular.module('ui.router.state')
     if (/[\d*\.\d*f|\d*]/.test(val)) {
       val = parseFloat(val);
     }
+    if (val === "TRUE") {
+      val = true;
+    }
+    if (val === "FALSE") {
+      val = false;
+    }
 
     return val;
   }
@@ -74733,6 +75037,12 @@ angular.module('ui.router.state')
     var open = 0;
     var soFar = "";
     var out = [];
+
+    var match = str.match(/^\((.*)\)$/);
+
+    if (match) {
+      str = match[1];
+    }
 
     for (var i = 0; i < str.length; i++) {
       var char = str[i];
@@ -74777,6 +75087,27 @@ angular.module('ui.router.state')
     $http.get('package.json').success(function (packageJson) {
       $rootScope.packageJson = packageJson;
     });
+  }
+
+})();
+
+//src/run/translation.js
+/*global angular*/
+
+(function () {
+  'use strict';
+
+  angular.module("app").run(translationRun);
+
+  translationRun.$inject = ["$rootScope"];
+
+  function translationRun($rootScope) {
+    $rootScope.translation = window.glt.translations.en;
+    $rootScope.fallbackTranslation = window.glt.translations.en;
+
+    $rootScope.translate = function (str) {
+      return $rootScope.translation[str] || $rootScope.fallbackTranslation[str] || str;
+    };
   }
 
 })();

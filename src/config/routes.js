@@ -24,17 +24,17 @@
       controllerAs: "vm"
     });
 
-    $stateProvider.state("blueprints", {
-      url: "/blueprints",
-      templateUrl: "src/templates/blueprints.html",
-      controller: "BlueprintsViewController",
+    $stateProvider.state("drops", {
+      url: "/drops",
+      templateUrl: "src/templates/drops.html",
+      controller: "DropsViewController",
       controllerAs: "vm"
     });
 
-    $stateProvider.state("blueprintsDetails", {
-      url: "/blueprints/:id",
-      templateUrl: "src/templates/blueprints.details.html",
-      controller: "BlueprintsDetailsViewController",
+    $stateProvider.state("dropsDetails", {
+      url: "/drops/:id",
+      templateUrl: "src/templates/drops.details.html",
+      controller: "DropsDetailsViewController",
       controllerAs: "vm"
     });
   }

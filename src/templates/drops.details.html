@@ -1,0 +1,81 @@
+<md-content flex layout="column" ng-show="vm.item">
+    <md-toolbar layout="row">
+        <div class="md-toolbar-tools">
+            <md-button aria-label="zurück" class="md-icon-button" ng-click="vm.$state.go('drops')">
+                <md-icon class="fa fa-angle-left"></md-icon>
+            </md-button>
+
+            <h2>
+                {{ $root.translate(vm.id) }}
+            </h2>
+        </div>
+    </md-toolbar>
+
+    <md-divider></md-divider>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Mob Level</th>
+                <th>Drop Chance</th>
+                <th>Element type</th>
+                <th>Planet type</th>
+                <th>Min Rank</th>
+                <th>Job</th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="drop in vm.item | orderBy:['hasMob', 'LevelRange.X']">
+            <tr ng-if="drop.hasMob" class="pawn">
+                <td colspan="6">
+                    <div flex layout="row">
+                        <div flex>
+                            {{drop.mob.name}} {{drop.mob.type}} {{drop.mob.size}}
+                        </div>
+                        <div ng-if="drop.$siblings.length > 1">
+                            Drops together:
+                            <a href=""
+                                    ng-repeat="sib in drop.$siblings"
+                                    ng-click="vm.$state.go('blueprintsDetails', {id: sib});"
+                                    class="drops-together md-whiteframe-1dp">
+                                {{ $root.translate(sib) }}
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr ng-if="!drop.hasMob" class="pawn">
+                <td colspan="6">
+                    Anything
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{drop.LevelRange.X}}
+                    <span ng-if="drop.LevelRange.Y != 0"> - {{drop.LevelRange.Y}}</span>
+                    <span ng-if="drop.LevelRange.Y == 0">+</span>
+                </td>
+                <td>{{drop.PercentToDrop * 10 * 10}}%</td>
+                <td>{{drop.RestrictToElemType ? $root.translate(drop.RestrictToElemType) : 'all'}}</td>
+                <td>{{drop.RestrictToPlanetType ? $root.translate(drop.RestrictToPlanetType) : 'all'}}</td>
+                <td>{{drop.MinRank || drop.JobRestrictionData.JobLevel || 0}}</td>
+                <td>
+                    <div ng-if="drop.JobRestrictionData.bRequireBeingThisJob === true">
+                        {{$root.translate(drop.JobRestrictionData.JobName)}} ({{drop.JobRestrictionData.JobLevel}}+)
+                    </div>
+                    <div ng-if="drop.JobRestrictionData.bRequireBeingThisJob !== true">
+                        all
+                    </div>
+                </td>
+            </tr>
+            <tr class="pawn-spacer">
+                <td colspan="6">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</md-content>
+<md-content class="md-padding" layout="column" layout-align="center center" flex ng-show="!vm.item">
+    <div layout="row" layout-sm="column" layout-align="space-around">
+        <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
+    </div>
+</md-content>

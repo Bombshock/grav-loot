@@ -15,15 +15,15 @@
                 vertical-align: middle;
             }
 
-            md-list-item.active a{
+            md-list-item.active a {
                 font-weight: bold;
             }
 
-            md-list-item a md-icon.fa{
+            md-list-item a md-icon.fa {
                 display: none;
             }
 
-            md-list-item.active a md-icon.fa{
+            md-list-item.active a md-icon.fa {
                 display: initial;
             }
 
@@ -64,7 +64,53 @@
                 border-bottom-color: #FFF;
             }
 
+            table {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                border-spacing: 0;
+                border-collapse: separate;
+            }
 
+            table thead {
+                background-color: rgb(33, 150, 243);
+                color: rgb(255, 255, 255);
+                border-top: 1px solid #FFF;
+            }
+
+            table thead th {
+                text-align: left;
+                padding: 15px 10px;
+                font-size: 1.2em;
+            }
+
+            table tbody td {
+                text-align: left;
+                padding: 15px 10px;
+            }
+
+            table tbody tr.pawn {
+                background-color: rgba(0, 0, 0, 0.3);
+                color: #FFF;
+            }
+
+            table tbody tr.pawn-spacer td {
+                height: 25px;
+            }
+
+            table tbody tr.pawn td {
+                margin-top: 25px;
+                padding: 10px 10px;
+                font-size: 0.8em;
+            }
+
+            a.drops-together {
+                background-color: rgb(33, 150, 243);
+                text-decoration: none;
+                color: #FFF;
+                padding: 4px 15px;
+                margin-left: 10px;
+            }
 
         </style>
     </head>
@@ -76,7 +122,7 @@
                 <div flex="20">
                     <img src="img/grav_logo_min.png" style="max-width: 225px;"/>
                 </div>
-                <h1 flex style="text-align: center;">Loot Tables</h1>
+                <h1 flex style="text-align: center;">Loot Tables (WIP)</h1>
                 <div flex="20"></div>
             </div>
         </md-toolbar>
@@ -93,8 +139,13 @@
                             <md-icon class="fa fa-chevron-right"></md-icon>
                         </md-list-item>
                         <md-divider></md-divider>
-                        <md-list-item ui-sref-active="active" ui-sref="blueprints()" layout="row" class="menu">
-                            <p flex>BluePrints</p>
+                        <md-list-item ui-sref-active="active" ui-sref="drops()" layout="row" class="menu">
+                            <p flex>Drops</p>
+                            <md-icon class="fa fa-chevron-right"></md-icon>
+                        </md-list-item>
+                        <md-divider></md-divider>
+                        <md-list-item ui-sref-active="active" ui-sref="armor()" layout="row" class="menu">
+                            <p flex>Armor Tiers</p>
                             <md-icon class="fa fa-chevron-right"></md-icon>
                         </md-list-item>
                     </md-list>
@@ -117,5 +168,9 @@
         <a href="https://github.com/Bombshock/grav-loot" style="z-index: 1337;"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
 
         <script src="dist/app.js"></script>
+
+        <!--
+            Made with <3
+        -->
     </body>
 </html>
