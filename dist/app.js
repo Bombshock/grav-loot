@@ -74692,7 +74692,7 @@ angular.module('ui.router.state')
           remeberedOffsets[id] = element.scrollTop;
         }
       }
-    }
+    };
   }
 
 })();

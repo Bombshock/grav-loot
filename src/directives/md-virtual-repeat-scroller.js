@@ -27,7 +27,7 @@
           remeberedOffsets[id] = element.scrollTop;
         }
       }
-    }
+    };
   }
 
 })();
