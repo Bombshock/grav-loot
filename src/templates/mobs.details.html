@@ -1,28 +1,70 @@
 <md-content flex layout="column" ng-show="vm.item">
     <md-toolbar layout="row">
-        <div class="md-toolbar-tools">
-            <h2>{{vm.item.name}} ({{vm.item.type}})</h2>
+        <div class="md-toolbar-tools" layout="row">
+            <h2 flex>{{vm.item.name}} ({{vm.item.type}})</h2>
+            <md-input-container style="color: #FFF;">
+                <md-select ng-model="vm.pickedSize" placeholder="Size">
+                    <md-option ng-repeat="size in vm.item.sizes" ng-value="size">
+                        {{size.size}} ({{size.lootCounter}})
+                    </md-option>
+                </md-select>
+            </md-input-container>
         </div>
     </md-toolbar>
 
     <md-divider></md-divider>
 
-    <md-tabs md-border-bottom flex layout="column" md-selected="vm.selectedTab">
-        <md-tab label="{{size.size}} ({{size.lootCounter}})" flex layout="column" ng-repeat="size in vm.item.sizes">
-            <md-content id="editor" flex layout="column">
+    <table>
+        <thead>
+            <tr>
+                <th>Mob Level</th>
+                <th>Drop Chance</th>
+                <th>Element type</th>
+                <th>Planet type</th>
+                <th>Min Rank</th>
+                <th>Job</th>
+            </tr>
+        </thead>
+    </table>
 
-                <md-list>
-                    <md-list-item class="md-3-line blueprint-list-item" ng-repeat="(key, value) in size.loot">
-                        <div class="md-list-item-text" layout="column">
-                            <h3>{{ $root.translate(key) }}</h3>
+    <md-content flex layout="column">
+        <table>
+            <tbody ng-repeat="drop in vm.pickedSize.lootArray | orderBy:['value.LevelRange.X']">
+                <tr class="pawn">
+                    <td colspan="3">
+                        {{ $root.translate(drop.key) }} ({{ $root.translate(drop.type) }})
+                    </td>
+                    <td colspan="3" style="text-align: right">
+                        <a href=""
+                                ng-click="vm.$state.go('dropsDetails', {id: drop.key});"
+                                class="drops-together md-whiteframe-1dp">
+                            details
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{drop.value.LevelRange.X}}
+                        <span ng-if="drop.value.LevelRange.Y != 0"> - {{drop.value.LevelRange.Y}}</span>
+                        <span ng-if="drop.value.LevelRange.Y == 0">+</span>
+                    </td>
+                    <td>{{drop.value.PercentToDrop * 10 * 10}}%</td>
+                    <td>{{drop.value.RestrictToElemType ? $root.translate(drop.value.RestrictToElemType) : 'all'}}</td>
+                    <td>{{drop.value.RestrictToPlanetType ? $root.translate(drop.value.RestrictToPlanetType) : 'all'}}</td>
+                    <td>{{drop.value.MinRank || drop.value.JobRestrictionData.JobLevel || 0}}</td>
+                    <td>
+                        <div ng-if="drop.value.JobRestrictionData.bRequireBeingThisJob === true">
+                            {{$root.translate(drop.value.JobRestrictionData.JobName)}} ({{drop.value.JobRestrictionData.JobLevel}}+)
                         </div>
-                        <md-divider ng-if="!$last"></md-divider>
-                    </md-list-item>
-                </md-list>
+                        <div ng-if="drop.value.JobRestrictionData.bRequireBeingThisJob !== true">
+                            all
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </md-content>
 
-            </md-content>
-        </md-tab>
-    </md-tabs>
 
 </md-content>
 <md-content class="md-padding" layout="column" layout-align="center center" flex ng-show="!vm.item">

@@ -24,6 +24,7 @@
 
       vm.item = item;
       vm.loot = {};
+      vm.pickedSize = item.sizes[0];
 
       for (var i = 0; i < item.sizes.length; i++) {
         handleOneSize(item.sizes[i]);
@@ -48,8 +49,19 @@
 
       size.loot = loot;
       size.lootCounter = Object.keys(loot).length;
-      console.log("keys", keys);
-      console.log("loot", loot);
+      size.lootArray = [];
+
+      for(var key in size.loot){
+        if(size.loot.hasOwnProperty(key)){
+          size.lootArray.push({
+            key: key,
+            type: key.split("_").shift(),
+            value: size.loot[key][0]
+          });
+        }
+      }
+
+      console.log("size.lootArray", size.lootArray);
     }
   }
 

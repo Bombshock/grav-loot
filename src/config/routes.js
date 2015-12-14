@@ -44,6 +44,11 @@
       controller: "ArmorViewController",
       controllerAs: "vm"
     });
+
+    $stateProvider.state("about", {
+      url: "/about",
+      templateUrl: "src/templates/about.html"
+    });
   }
 
 })();

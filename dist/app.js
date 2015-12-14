@@ -1,4 +1,4 @@
-/*! grav-loot - v1.0.0 - 2015-12-11 */
+/*! grav-loot - v1.0.0 - 2015-12-14 */
 
 //bower_components/lodash/lodash.js
 /**
@@ -74332,6 +74332,11 @@ angular.module('ui.router.state')
       controller: "ArmorViewController",
       controllerAs: "vm"
     });
+
+    $stateProvider.state("about", {
+      url: "/about",
+      templateUrl: "src/templates/about.html"
+    });
   }
 
 })();
@@ -74577,6 +74582,7 @@ angular.module('ui.router.state')
 
       vm.item = item;
       vm.loot = {};
+      vm.pickedSize = item.sizes[0];
 
       for (var i = 0; i < item.sizes.length; i++) {
         handleOneSize(item.sizes[i]);
@@ -74601,8 +74607,19 @@ angular.module('ui.router.state')
 
       size.loot = loot;
       size.lootCounter = Object.keys(loot).length;
-      console.log("keys", keys);
-      console.log("loot", loot);
+      size.lootArray = [];
+
+      for(var key in size.loot){
+        if(size.loot.hasOwnProperty(key)){
+          size.lootArray.push({
+            key: key,
+            type: key.split("_").shift(),
+            value: size.loot[key][0]
+          });
+        }
+      }
+
+      console.log("size.lootArray", size.lootArray);
     }
   }
 

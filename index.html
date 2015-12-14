@@ -121,6 +121,14 @@
                 color: #FFF;
             }
 
+            i {
+                display: inline;
+            }
+
+            md-content a {
+                color: rgb(33, 150, 243);
+            }
+
         </style>
     </head>
 
@@ -155,6 +163,11 @@
                         <md-divider></md-divider>
                         <md-list-item ui-sref-active="active" ui-sref="armor()" layout="row" class="menu">
                             <p flex>Armor Tiers</p>
+                            <md-icon class="fa fa-chevron-right"></md-icon>
+                        </md-list-item>
+                        <md-divider></md-divider>
+                        <md-list-item ui-sref-active="active" ui-sref="about()" layout="row" class="menu">
+                            <p flex>About</p>
                             <md-icon class="fa fa-chevron-right"></md-icon>
                         </md-list-item>
                     </md-list>
