@@ -20,8 +20,6 @@
     });
 
     function init(item) {
-      console.log("lootTables %o", lootTables);
-
       vm.item = item;
       vm.loot = {};
       vm.pickedSize = item.sizes[0];
@@ -60,8 +58,6 @@
           });
         }
       }
-
-      console.log("size.lootArray", size.lootArray);
     }
   }
 

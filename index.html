@@ -1,10 +1,10 @@
 <html lang="en" ng-app="app">
     <head>
         <title>Grav Loot Tables</title>
-        <meta name="viewport" content="initial-scale=1" />
-        <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
-        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
-        <link rel="icon" href="img/favicon.png?v2" type="image/png" />
+        <meta name="viewport" content="initial-scale=1"/>
+        <link rel="stylesheet" href="bower_components/angular-material/angular-material.css"/>
+        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
+        <link rel="icon" href="img/favicon.png?v2" type="image/png"/>
 
         <style>
             [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
@@ -129,6 +129,20 @@
 
             md-content a {
                 color: rgb(33, 150, 243);
+            }
+
+            .blueprint-list-item a {
+                flex-direction: column !important;
+                flex: 1;
+                display: flex;
+                margin: 0 !important;
+            }
+            .blueprint-list-item a .md-list-item-inner {
+                flex: 1;
+                flex-direction: row;
+            }
+            .blueprint-list-item a .md-list-item-inner .md-list-item-text {
+                flex: 1;
             }
 
         </style>

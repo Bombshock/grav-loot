@@ -15,7 +15,7 @@
             <md-list>
                 <md-list-item class="md-3-line blueprint-list-item"
                         ng-repeat="blueprint in tier.blueprints"
-                        ng-click="vm.$state.go('dropsDetails', {id: blueprint.key})">
+                        ng-href="#/drops/{{blueprint.key}}">
                     <div class="md-list-item-text" layout="column">
                         <h3>
                             {{ $root.translate(blueprint.key) }}

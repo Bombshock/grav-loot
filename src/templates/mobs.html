@@ -14,16 +14,13 @@
 
     <md-content flex ng-show="vm.lootTables.mobsGroupedArray.length">
         <md-list>
-            <md-list-item class="md-3-line"
-                          ng-repeat-start="mobGroup in vm.lootTables.mobsGroupedArray | filter:$root.searchTextMobs | orderBy:['name', 'type']"
-                          ng-click="vm.goToMob(mobGroup)">
-                <div class="md-list-item-text" layout="row">
-                    <div flex="70" layout="column">
-                        <h3>{{ mobGroup.name }}</h3>
-                        <h4>{{ mobGroup.type }}</h4>
-                    </div>
-                    <span flex></span>
-
+            <md-list-item class="md-3-line blueprint-list-item"
+                    ng-repeat-start="mobGroup in vm.lootTables.mobsGroupedArray | filter:$root.searchTextMobs | orderBy:['name', 'type']"
+                    ng-click="vm.goToMob(mobGroup)"
+                    ng-href="#/mobs/{{mobGroup.$parent}}">
+                <div class="md-list-item-text" layout="column">
+                    <h3>{{ mobGroup.name }}</h3>
+                    <h4>{{ mobGroup.type }}</h4>
                     <p>{{ vm.genSizes(mobGroup) }}</p>
                 </div>
             </md-list-item>
@@ -32,7 +29,7 @@
     </md-content>
 
     <md-content class="md-padding" layout="column" layout-align="center center" flex
-                ng-show="!vm.lootTables.mobsGroupedArray.length">
+            ng-show="!vm.lootTables.mobsGroupedArray.length">
         <div layout="row" layout-sm="column" layout-align="space-around">
             <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
         </div>

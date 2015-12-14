@@ -13,7 +13,7 @@
       fauna: /Fauna(_([a-z0-9]*))?/i
     };
 
-    vm.id = $state.params.id;
+    vm.id = decodeURIComponent($state.params.id);
     vm.$state = $state;
 
     lootTables.$promise.then(function () {

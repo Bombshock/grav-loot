@@ -74484,7 +74484,7 @@ angular.module('ui.router.state')
       fauna: /Fauna(_([a-z0-9]*))?/i
     };
 
-    vm.id = $state.params.id;
+    vm.id = decodeURIComponent($state.params.id);
     vm.$state = $state;
 
     lootTables.$promise.then(function () {
@@ -74582,8 +74582,6 @@ angular.module('ui.router.state')
     });
 
     function init(item) {
-      console.log("lootTables %o", lootTables);
-
       vm.item = item;
       vm.loot = {};
       vm.pickedSize = item.sizes[0];
@@ -74622,8 +74620,6 @@ angular.module('ui.router.state')
           });
         }
       }
-
-      console.log("size.lootArray", size.lootArray);
     }
   }
 

@@ -16,7 +16,7 @@
                 <md-list-item class="md-3-line blueprint-list-item"
                         md-virtual-repeat="item in vm.lootTables.lootsArray | filter:$root.searchTextBPs | orderBy:['type', 'key']"
                         md-item-size="88"
-                        ng-click="vm.viewDetails(item)">
+                        ng-href="#/drops/{{item.keyOrigin}}">
                     <div class="md-list-item-text" layout="column">
                         <h3>
                             <span md-highlight-text="$root.searchTextBPs" md-highlight-flags="^i">{{ item.key }}</span>
