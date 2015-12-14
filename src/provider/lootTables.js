@@ -45,7 +45,7 @@
             data: obj[key],
             key: $rootScope.translate(key),
             keyOrigin: key,
-            type: $rootScope.translate(key.split("_").shift()),
+            type: $rootScope.translateType(key),
             typeOrigin: key.split("_").shift()
           };
         });

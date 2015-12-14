@@ -53,11 +53,15 @@
   window.glt.translations.en['CH_UnicornHead_White'] = 'Unicorn (white)';
 
   window.glt.translations.en['CIA'] = 'Equipment';
-  window.glt.translations.en['CIA_Ammo_AssaultRifle'] = 'Ammo: Assault Rifle';
-  window.glt.translations.en['CIA_Ammo_Pistol'] = 'Ammo: Pistol';
-  window.glt.translations.en['CIA_Ammo_PlayerRocketLauncher'] = 'Ammo: Rocket Launcher';
-  window.glt.translations.en['CIA_Ammo_SMG'] = 'Ammo: SMG';
-  window.glt.translations.en['CIA_Ammo_Shotgun'] = 'Ammo: Shotgun';
+
+  window.glt.translations.en['CIA_Ammo'] = 'Ammunition';
+  window.glt.translations.en['CIA_Ammo_AssaultRifle'] = 'Assault Rifle';
+  window.glt.translations.en['CIA_Ammo_Pistol'] = 'Pistol';
+  window.glt.translations.en['CIA_Ammo_PlayerRocketLauncher'] = 'Rocket Launcher';
+  window.glt.translations.en['CIA_Ammo_SMG'] = 'SMG';
+  window.glt.translations.en['CIA_Ammo_Shotgun'] = 'Shotgun';
+
+  window.glt.translations.en['CIA_Equipment'] = 'Armor';
   window.glt.translations.en['CIA_Equipment_Boots_AlienTower'] = 'AlienTower: Boots';
   window.glt.translations.en['CIA_Equipment_Boots_ElementX'] = '';
   window.glt.translations.en['CIA_Equipment_Boots_Fossil'] = '';
@@ -116,12 +120,14 @@
   window.glt.translations.en['CIA_Equipment_Shirt_SunStone'] = '';
   window.glt.translations.en['CIA_Equipment_Shirt_Tundra'] = '';
   window.glt.translations.en['CIA_Equipment_Shirt_Wood'] = '';
+
+  window.glt.translations.en['CIA_Weapon'] = 'Weapon';
   window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl0_Normal'] = '';
   window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl1'] = '';
   window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl3'] = '';
   window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl5'] = '';
   window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl7'] = '';
-  window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl8'] = '';
+  window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl8'] = 'El Presidente';
   window.glt.translations.en['CIA_Weapon_Melee2_Lvl4'] = '';
   window.glt.translations.en['CIA_Weapon_Melee_AlienTower_Lvl11'] = 'AlienTower Weapon (superior - melee)';
   window.glt.translations.en['CIA_Weapon_Melee_Axe_Lvl11'] = 'Axe (superior - melee)';
@@ -171,15 +177,23 @@
   window.glt.translations.en['CIA_Weapon_Shotgun_Lvl7'] = '';
   window.glt.translations.en['CIA_Weapon_Shotgun_Lvl8'] = '';
 
+  window.glt.translations.en['CIF_Trap'] = 'Trap';
   window.glt.translations.en['CIF_Trap_Landmine'] = 'Landmine';
   window.glt.translations.en['CIF_Trap_LandmineStunner'] = 'Landmine (stun)';
+
+  window.glt.translations.en['CIF_Vehicle'] = 'Vehicle (inventory)';
   window.glt.translations.en['CIF_Vehicle_Jetpack_Lvl0'] = 'Jetpack';
   window.glt.translations.en['CIF_Vehicle_Jetpack_Lvl1'] = 'Jetpack+';
   window.glt.translations.en['CIF_Vehicle_Monocycle_Lvl0'] = 'Monocycle';
   window.glt.translations.en['CIF_Vehicle_Monocycle_Lvl1'] = 'Monocycle+';
   window.glt.translations.en['CIF_Vehicle_WingSuit'] = 'WingSuit';
   window.glt.translations.en['CIF_Vehicle_WingSuitBird'] = 'WingSuit (bird)';
-  window.glt.translations.en['CIF_Vehicle_WingSuitPlus'] = 'WingSuit+   ';
+  window.glt.translations.en['CIF_Vehicle_WingSuitPlus'] = 'WingSuit+';
+
+  window.glt.translations.en['CIVF'] = 'Vehicle (deploy)';
+  window.glt.translations.en['CIVF_DuneBuggy'] = 'Dune Buggy';
+  window.glt.translations.en['CIVF_Tank'] = 'Tank';
+  window.glt.translations.en['CIVF_Hammerhead'] = 'Hammerhead';
 
   window.glt.translations.en['CIP'] = 'Pet';
   window.glt.translations.en['CIP_PetConstruction'] = 'Constructo Bot';
@@ -199,11 +213,6 @@
   window.glt.translations.en['CISS_HealthStim'] = 'Health';
   window.glt.translations.en['CISS_InvisStim'] = 'Invis';
   window.glt.translations.en['CISS_SpeedStim'] = 'Speed';
-
-  window.glt.translations.en['CIVF'] = 'Vehicle (deploy)';
-  window.glt.translations.en['CIVF_DuneBuggy'] = 'Dune Buggy';
-  window.glt.translations.en['CIVF_Tank'] = 'Tank';
-  window.glt.translations.en['CIVF_Hammerhead'] = 'Hammerhead';
 
   window.glt.translations.en['KIT'] = 'Consumable';
   window.glt.translations.en['KIT_EFB_Cold'] = 'Hot Chocolate';

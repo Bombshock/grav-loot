@@ -45714,7 +45714,7 @@ ngAriaModule.directive('ngShow', ['$aria', function($aria) {
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.0.0-rc7-master-8d7ec06
+ * v1.0.0-rc7-master-80a8929
  */
 (function( window, angular, undefined ){
 "use strict";
@@ -49148,7 +49148,9 @@ function InterimElementProvider() {
   function buildUpdateFn(element, className, attrs) {
     return function updateAttrValue(fallback) {
       if (!needsInterpolation(fallback)) {
-        element.attr(className, fallback);
+        // Do not modify the element's attribute value; so
+        // uses '<ui-layout layout="/api/sidebar.html" />' will not
+        // be affected. Just update the attrs value.
         attrs[attrs.$normalize(className)] = fallback;
       }
     };
@@ -59531,7 +59533,7 @@ function SelectDirective($mdSelect, $mdUtil, $mdTheming, $mdAria, $compile, $par
         selectContainer = angular.element(
           element[0].querySelector('.md-select-menu-container')
         );
-        selectScope = selectContainer.scope();
+        selectScope = scope;
         if (element.attr('md-container-class')) {
           var value = selectContainer[0].getAttribute('class') + ' ' + element.attr('md-container-class');
           selectContainer[0].setAttribute('class', value);
@@ -69523,7 +69525,9 @@ function MdTabsController ($scope, $element, $window, $mdConstant, $mdTabInkRipp
         contentHeight = tabContent ? tabContent.offsetHeight : 0,
         tabsHeight    = elements.wrapper.offsetHeight,
         newHeight     = contentHeight + tabsHeight,
-        currentHeight = $element.prop('offsetHeight');
+        currentHeight = $element.prop('clientHeight');
+
+    if (currentHeight === newHeight) return;
 
     // Adjusts calculations for when the buttons are bottom-aligned since this relies on absolute
     // positioning.  This should probably be cleaned up if a cleaner solution is possible.
@@ -69896,7 +69900,7 @@ angular.module("material.core").constant("$MD_THEME_CSS", "md-autocomplete.md-TH
 })();
 
 
-})(window, window.angular);window.ngMaterial={version:{full: "1.0.0-rc7-master-8d7ec06"}};
+})(window, window.angular);window.ngMaterial={version:{full: "1.0.0-rc7-master-80a8929"}};
 
 //bower_components/angular-ui-router/release/angular-ui-router.js
 /**
@@ -74749,11 +74753,15 @@ angular.module('ui.router.state')
   window.glt.translations.en['CH_UnicornHead_White'] = 'Unicorn (white)';
 
   window.glt.translations.en['CIA'] = 'Equipment';
-  window.glt.translations.en['CIA_Ammo_AssaultRifle'] = 'Ammo: Assault Rifle';
-  window.glt.translations.en['CIA_Ammo_Pistol'] = 'Ammo: Pistol';
-  window.glt.translations.en['CIA_Ammo_PlayerRocketLauncher'] = 'Ammo: Rocket Launcher';
-  window.glt.translations.en['CIA_Ammo_SMG'] = 'Ammo: SMG';
-  window.glt.translations.en['CIA_Ammo_Shotgun'] = 'Ammo: Shotgun';
+
+  window.glt.translations.en['CIA_Ammo'] = 'Ammunition';
+  window.glt.translations.en['CIA_Ammo_AssaultRifle'] = 'Assault Rifle';
+  window.glt.translations.en['CIA_Ammo_Pistol'] = 'Pistol';
+  window.glt.translations.en['CIA_Ammo_PlayerRocketLauncher'] = 'Rocket Launcher';
+  window.glt.translations.en['CIA_Ammo_SMG'] = 'SMG';
+  window.glt.translations.en['CIA_Ammo_Shotgun'] = 'Shotgun';
+
+  window.glt.translations.en['CIA_Equipment'] = 'Armor';
   window.glt.translations.en['CIA_Equipment_Boots_AlienTower'] = 'AlienTower: Boots';
   window.glt.translations.en['CIA_Equipment_Boots_ElementX'] = '';
   window.glt.translations.en['CIA_Equipment_Boots_Fossil'] = '';
@@ -74812,12 +74820,14 @@ angular.module('ui.router.state')
   window.glt.translations.en['CIA_Equipment_Shirt_SunStone'] = '';
   window.glt.translations.en['CIA_Equipment_Shirt_Tundra'] = '';
   window.glt.translations.en['CIA_Equipment_Shirt_Wood'] = '';
+
+  window.glt.translations.en['CIA_Weapon'] = 'Weapon';
   window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl0_Normal'] = '';
   window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl1'] = '';
   window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl3'] = '';
   window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl5'] = '';
   window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl7'] = '';
-  window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl8'] = '';
+  window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl8'] = 'El Presidente';
   window.glt.translations.en['CIA_Weapon_Melee2_Lvl4'] = '';
   window.glt.translations.en['CIA_Weapon_Melee_AlienTower_Lvl11'] = 'AlienTower Weapon (superior - melee)';
   window.glt.translations.en['CIA_Weapon_Melee_Axe_Lvl11'] = 'Axe (superior - melee)';
@@ -74867,15 +74877,23 @@ angular.module('ui.router.state')
   window.glt.translations.en['CIA_Weapon_Shotgun_Lvl7'] = '';
   window.glt.translations.en['CIA_Weapon_Shotgun_Lvl8'] = '';
 
+  window.glt.translations.en['CIF_Trap'] = 'Trap';
   window.glt.translations.en['CIF_Trap_Landmine'] = 'Landmine';
   window.glt.translations.en['CIF_Trap_LandmineStunner'] = 'Landmine (stun)';
+
+  window.glt.translations.en['CIF_Vehicle'] = 'Vehicle (inventory)';
   window.glt.translations.en['CIF_Vehicle_Jetpack_Lvl0'] = 'Jetpack';
   window.glt.translations.en['CIF_Vehicle_Jetpack_Lvl1'] = 'Jetpack+';
   window.glt.translations.en['CIF_Vehicle_Monocycle_Lvl0'] = 'Monocycle';
   window.glt.translations.en['CIF_Vehicle_Monocycle_Lvl1'] = 'Monocycle+';
   window.glt.translations.en['CIF_Vehicle_WingSuit'] = 'WingSuit';
   window.glt.translations.en['CIF_Vehicle_WingSuitBird'] = 'WingSuit (bird)';
-  window.glt.translations.en['CIF_Vehicle_WingSuitPlus'] = 'WingSuit+   ';
+  window.glt.translations.en['CIF_Vehicle_WingSuitPlus'] = 'WingSuit+';
+
+  window.glt.translations.en['CIVF'] = 'Vehicle (deploy)';
+  window.glt.translations.en['CIVF_DuneBuggy'] = 'Dune Buggy';
+  window.glt.translations.en['CIVF_Tank'] = 'Tank';
+  window.glt.translations.en['CIVF_Hammerhead'] = 'Hammerhead';
 
   window.glt.translations.en['CIP'] = 'Pet';
   window.glt.translations.en['CIP_PetConstruction'] = 'Constructo Bot';
@@ -74895,11 +74913,6 @@ angular.module('ui.router.state')
   window.glt.translations.en['CISS_HealthStim'] = 'Health';
   window.glt.translations.en['CISS_InvisStim'] = 'Invis';
   window.glt.translations.en['CISS_SpeedStim'] = 'Speed';
-
-  window.glt.translations.en['CIVF'] = 'Vehicle (deploy)';
-  window.glt.translations.en['CIVF_DuneBuggy'] = 'Dune Buggy';
-  window.glt.translations.en['CIVF_Tank'] = 'Tank';
-  window.glt.translations.en['CIVF_Hammerhead'] = 'Hammerhead';
 
   window.glt.translations.en['KIT'] = 'Consumable';
   window.glt.translations.en['KIT_EFB_Cold'] = 'Hot Chocolate';
@@ -74999,7 +75012,7 @@ angular.module('ui.router.state')
             data: obj[key],
             key: $rootScope.translate(key),
             keyOrigin: key,
-            type: $rootScope.translate(key.split("_").shift()),
+            type: $rootScope.translateType(key),
             typeOrigin: key.split("_").shift()
           };
         });
@@ -75249,8 +75262,30 @@ angular.module('ui.router.state')
     $rootScope.translation = window.glt.translations.en;
     $rootScope.fallbackTranslation = window.glt.translations.en;
 
+    var secondLevelClasses = [
+      "CIA_Weapon",
+      "CIA_Equipment",
+      "CIA_Ammo",
+      "CIF_Trap",
+      "CIF_Vehicle"
+    ];
+
     $rootScope.translate = function (str) {
       return $rootScope.translation[str] || $rootScope.fallbackTranslation[str] || str;
+    };
+
+    $rootScope.translateType = function (key) {
+
+      var str = key.split("_").shift();
+
+      for (var i = 0; i < secondLevelClasses.length; i++) {
+        var cls = secondLevelClasses[i];
+        if(key.indexOf(cls) === 0){
+          str = cls;
+        }
+      }
+
+      return $rootScope.translate(str);
     };
   }
 
