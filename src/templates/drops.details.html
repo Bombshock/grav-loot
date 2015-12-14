@@ -1,7 +1,7 @@
 <md-content flex layout="column" ng-show="vm.item">
     <md-toolbar layout="row">
         <div class="md-toolbar-tools">
-            <h2>{{ $root.translate(vm.id) }}</h2>
+            <h2>{{ $root.translate(vm.id) }} ({{$root.translateType(vm.id)}})</h2>
         </div>
     </md-toolbar>
 
@@ -35,6 +35,7 @@
                                     ng-click="vm.$state.go('dropsDetails', {id: sib});"
                                     class="drops-together md-whiteframe-1dp">
                                 {{ $root.translate(sib) }}
+                                ({{ $root.translateType(sib) }})
                             </a>
                         </div>
                     </div>

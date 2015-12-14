@@ -74829,8 +74829,8 @@ angular.module('ui.router.state')
   window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl7'] = '';
   window.glt.translations.en['CIA_Weapon_AssaultRifle_Lvl8'] = 'El Presidente';
   window.glt.translations.en['CIA_Weapon_Melee2_Lvl4'] = '';
-  window.glt.translations.en['CIA_Weapon_Melee_AlienTower_Lvl11'] = 'AlienTower Weapon (superior - melee)';
-  window.glt.translations.en['CIA_Weapon_Melee_Axe_Lvl11'] = 'Axe (superior - melee)';
+  window.glt.translations.en['CIA_Weapon_Melee_AlienTower_Lvl11'] = 'AlienTower Melee Weapon - superior';
+  window.glt.translations.en['CIA_Weapon_Melee_Axe_Lvl11'] = 'Axe - superior';
   window.glt.translations.en['CIA_Weapon_Melee_Block_Lvl11'] = '';
   window.glt.translations.en['CIA_Weapon_Melee_Circle_Lvl11'] = '';
   window.glt.translations.en['CIA_Weapon_Melee_Cleaver_Lvl11'] = '';
@@ -74879,18 +74879,18 @@ angular.module('ui.router.state')
 
   window.glt.translations.en['CIF_Trap'] = 'Trap';
   window.glt.translations.en['CIF_Trap_Landmine'] = 'Landmine';
-  window.glt.translations.en['CIF_Trap_LandmineStunner'] = 'Landmine (stun)';
+  window.glt.translations.en['CIF_Trap_LandmineStunner'] = 'Landmine - Stun';
 
-  window.glt.translations.en['CIF_Vehicle'] = 'Vehicle (inventory)';
+  window.glt.translations.en['CIF_Vehicle'] = 'Vehicle';
   window.glt.translations.en['CIF_Vehicle_Jetpack_Lvl0'] = 'Jetpack';
   window.glt.translations.en['CIF_Vehicle_Jetpack_Lvl1'] = 'Jetpack+';
   window.glt.translations.en['CIF_Vehicle_Monocycle_Lvl0'] = 'Monocycle';
   window.glt.translations.en['CIF_Vehicle_Monocycle_Lvl1'] = 'Monocycle+';
   window.glt.translations.en['CIF_Vehicle_WingSuit'] = 'WingSuit';
-  window.glt.translations.en['CIF_Vehicle_WingSuitBird'] = 'WingSuit (bird)';
+  window.glt.translations.en['CIF_Vehicle_WingSuitBird'] = 'WingSuit Bird';
   window.glt.translations.en['CIF_Vehicle_WingSuitPlus'] = 'WingSuit+';
 
-  window.glt.translations.en['CIVF'] = 'Vehicle (deploy)';
+  window.glt.translations.en['CIVF'] = 'Vehicle';
   window.glt.translations.en['CIVF_DuneBuggy'] = 'Dune Buggy';
   window.glt.translations.en['CIVF_Tank'] = 'Tank';
   window.glt.translations.en['CIVF_Hammerhead'] = 'Hammerhead';
@@ -74907,9 +74907,9 @@ angular.module('ui.router.state')
   window.glt.translations.en['CISS'] = 'Stim';
   window.glt.translations.en['CISS_DamageStim'] = 'Damage';
   window.glt.translations.en['CISS_DefenseStim'] = 'Defense';
-  window.glt.translations.en['CISS_Firework_Common'] = 'Firework (common)';
-  window.glt.translations.en['CISS_Firework_Rare'] = 'Firework (rare)';
-  window.glt.translations.en['CISS_Firework_Uncommon'] = 'Firework (uncommon)';
+  window.glt.translations.en['CISS_Firework_Common'] = 'Firework - common';
+  window.glt.translations.en['CISS_Firework_Rare'] = 'Firework - rare';
+  window.glt.translations.en['CISS_Firework_Uncommon'] = 'Firework - uncommon';
   window.glt.translations.en['CISS_HealthStim'] = 'Health';
   window.glt.translations.en['CISS_InvisStim'] = 'Invis';
   window.glt.translations.en['CISS_SpeedStim'] = 'Speed';
@@ -74922,7 +74922,7 @@ angular.module('ui.router.state')
   window.glt.translations.en['KIT_Food_CandyCorn'] = '';
   window.glt.translations.en['KIT_Food_Lollipop'] = '';
   window.glt.translations.en['KIT_Food_WrappedCandy'] = '';
-  window.glt.translations.en['KIT_Ration_Large'] = 'Ration (large)';
+  window.glt.translations.en['KIT_Ration_Large'] = 'Ration - large';
 
   window.glt.translations.en['PlayerJob'] = 'Player Job';
   window.glt.translations.en['PlayerJob_Acrobat'] = 'Acrobat';
